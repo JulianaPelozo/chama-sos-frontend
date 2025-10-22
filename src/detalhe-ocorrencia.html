@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Detalhe da Ocorrência</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body, main {
+      margin: 0;
+      padding: 0;
+      background: url("bg.jpg") no-repeat center center;
+      background-size: cover;
+      min-height: 92vh;
+      font-family: system-ui, -apple-system, Helvetica, Arial, sans-serif;
+      color: white;
+    }
+
+    main {
+      padding: 40px 40px 20px auto;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .notification {
+      background-color: rgba(58, 58, 80, 0.85);
+      border-radius: 20px;
+      width: 300px;
+      height: 300px;
+      box-sizing: border-box;
+      padding: 20px;
+      box-shadow: 0 0 10px #1f1f2a;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      cursor: default;
+    }
+
+    .notification h3 {
+      margin: 0 0 10px 0;
+      font-size: 24px;
+      text-align: center;
+    }
+
+    .notification p {
+      margin: 0 0 8px 0;
+      font-size: 16px;
+      text-align: center;
+    }
+
+    @media (max-width: 650px) {
+      main {
+        justify-content: center;
+        padding: 20px 10px;
+      }
+      .notification {
+        width: 90vw;
+        height: auto;
+        min-height: 180px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <a class="logo" href="index.html">CHAMA SOS PE</a>
+      <div class="mobile-menu">
+        <div class="line1"></div>
+        <div class="line2"></div>
+        <div class="line3"></div>
+      </div>
+      <ul class="nav-list">
+        <li><a href="#">CBMPE</a></li>
+        <li><a href="#">CBMAR</a></li>
+        <li><a href="#">CIODS</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <div class="notification">
+      <h3>Acidente de Trânsito - Detalhes</h3>
+      <p><strong>Data:</strong> 17/10/2025</p>
+      <p><strong>Local:</strong> Av. Agamenon Magalhães</p>
+      <p><strong>Descrição:</strong> Colisão entre dois veículos com vítimas resgatadas pela equipe de bombeiros. Atendimento rápido e transporte ao hospital.</p>
+    </div>
+  </main>
+
+  <script src="mobile-navbar.js"></script>
+</body>
+</html>

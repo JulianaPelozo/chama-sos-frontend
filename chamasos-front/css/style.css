@@ -1,0 +1,123 @@
+:root {
+  --azul-pastel: #a2cffe;
+  --azul-claro: #e3f2fd;
+  --branco: #ffffff;
+  --texto: #333;
+}
+
+/* Fundo */
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  height: 100vh;
+  background: linear-gradient(135deg, #cbe5ff, #e8f2ff);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Caixa de login */
+.login-box {
+  background: var(--branco);
+  padding: 40px 50px;
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 340px;
+  animation: fadeInUp 0.8s ease both;
+}
+
+.login-box h2 {
+  margin-bottom: 15px;
+  color: var(--texto);
+  font-weight: 600;
+}
+
+/* Logo */
+.logo {
+  width: 130px; /* um pouco maior */
+  height: auto;
+  margin: 15px 0 25px 0;
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeInLogo 1s ease forwards;
+  animation-delay: 0.3s;
+}
+
+/* Inputs */
+.login-box input {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  font-size: 14px;
+  transition: border-color 0.2s ease;
+}
+
+.login-box input:focus {
+  border-color: var(--azul-pastel);
+}
+
+/* Botão */
+.login-box button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  background: #a9d2ff;
+  color: var(--texto);
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.login-box button:hover {
+  background: #91c1f5;
+}
+
+/* Erro */
+.error {
+  color: red;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+/* --- Animações --- */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInLogo {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* Responsividade */
+@media (max-width: 400px) {
+    .login-box {
+        width: 90%;
+        padding: 30px 20px;
+    }
+    .logo {
+        width: 100px;
+        margin: 10px 0 20px 0;
+    }
+    .login-box h2 {
+        font-size: 20px;
+    }
+    .login-box input, .login-box button {
+        font-size: 13px;
+        padding: 10px;
+    }
+}

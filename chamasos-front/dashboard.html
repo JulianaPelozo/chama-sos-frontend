@@ -1,29 +1,55 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dashboard - Sistema Azul</title>
+    <title>Dashboard - Sistema Vermelho Pastel</title>
     <link rel="stylesheet" href="css/style.css" />
-  </head>
-  <body>
-    <div class="dashboard">
-      <div class="sidebar">
-        <h3>Painel</h3>
-        <a href="#">Início</a>
-        <a href="#">Usuários</a>
-        <a href="#">Configurações</a>
-        <a href="#" onclick="logout()">Sair</a>
-      </div>
+</head>
 
-      <div class="main-content">
-        <h2>Bem-vindo!</h2>
-        <div id="content">
-          <div class="card">Carregando dados...</div>
+<body>
+    <div class="dashboard">
+        <aside class="sidebar" id="sidebar">
+            <h3>Menu</h3>
+            <a href="#">Início</a>
+            <a href="#">Usuários</a>
+            <a href="#">Configurações</a>
+            <a href="#" onclick="logout()">Sair</a>
+        </aside>
+
+        <div class="main-content">
+            <header class="topbar">
+                <button id="menu-toggle" class="menu-btn">☰</button>
+                <h2>Painel de Controle</h2>
+            </header>
+
+            <section id="content">
+                <div class="card">
+                    <h3>Usuários Cadastrados</h3>
+                    <p>Abaixo estão os logins registrados no sistema.</p>
+                    <div class="search-container">
+                        <input type="text" id="searchInput" placeholder="Pesquisar usuário..." />
+                    </div>
+
+                    <div class="table-container">
+                        <table id="userTable">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nome</th>
+                                    <th>Email</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
         </div>
-      </div>
     </div>
 
     <script src="js/dashboard.js"></script>
-  </body>
+</body>
+
 </html>

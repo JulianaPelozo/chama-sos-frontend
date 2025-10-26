@@ -1,24 +1,32 @@
+const API_URL = "http://localhost:5000/api";
+
 async function login() {
-  const username = document.getElementById("username").value;
+  const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
-  const errorEl = document.getElementById("error");
+  const errorDiv = document.querySelector(".error");
 
   try {
-    const res = await fetch("http://localhost:3000/login", {
+    const response = await fetch(`${API_URL}/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, password }),
+      body: JSON.stringify({ email, password }),
     });
 
-    const data = await res.json();
+    const data = await response.json();
 
-    if (res.ok) {
-      localStorage.setItem("token", data.token);
-      window.location.href = "dashboard.html";
-    } else {
-      errorEl.textContent = data.error;
+    if (!response.ok) {
+      errorDiv.textContent = data.message || "Usuário ou senha inválidos.";
+      return;
     }
+
+    localStorage.setItem("token", data.token);
+    window.location.href = "dashboard.html";
   } catch (err) {
-    errorEl.textContent = "Erro de conexão com o servidor.";
+    console.error("Erro na requisição:", err);
+    errorDiv.textContent = "Erro de conexão com o servidor.";
   }
 }
+document.getElementById("login-form").addEventListener("submit", (e) => {
+  e.preventDefault();
+  login();
+});

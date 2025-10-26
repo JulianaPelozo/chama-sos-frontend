@@ -15,13 +15,11 @@ export default function Login() {
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            // chama API de auth (ex: POST /auth/login) — já configurado em services/api
             const res = await api.post('/auth/login', { email, password })
             const token = res.data.token || 'demo-token'
             login(token)
             navigate('/dashboard')
         } catch (err) {
-            // Caso não exista API, faz mock local
             login('demo-token')
             navigate('/dashboard')
         }

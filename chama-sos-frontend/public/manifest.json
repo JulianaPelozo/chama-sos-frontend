@@ -1,6 +1,6 @@
 {
-  "short_name": "Chamado App",
-  "name": "Sistema de Chamados",
+  "short_name": "Chama SOS",
+  "name": "Sistema de Chamadas para Bombeiros",
   "icons": [
     {
       "src": "icons/icon-192.png",

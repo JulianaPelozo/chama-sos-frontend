@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function Home() {
   return (
     <div className="flex min-h-screen bg-gray-100">
@@ -22,7 +20,7 @@ export default function Home() {
             <p className="text-3xl font-bold text-red-600">24</p>
           </div>
           <div className="bg-white p-4 rounded-2xl shadow text-center">
-            <h3 className="text-gray-700">Chamados finalizados</h3>
+            <h3 className="text-gray-700">Chamadas finalizadas</h3>
             <p className="text-3xl font-bold text-red-600">15</p>
           </div>
           <div className="bg-white p-4 rounded-2xl shadow text-center">

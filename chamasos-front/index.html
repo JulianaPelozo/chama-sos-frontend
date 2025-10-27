@@ -17,10 +17,13 @@
 
       <img src="img/logo.jpg" alt="Logo do Sistema" class="logo" />
 
-      <input type="text" id="username" placeholder="Usuário" />
-      <input type="password" id="password" placeholder="Senha" />
-      <button onclick="login()">Login</button>
-      <p id="error" style="color: red; text-align: center; margin-top: 10px;"></p>
+      <form id="loginForm">
+        <input type="text" id="usuario" placeholder="Usuário" required />
+        <input type="password" id="senha" placeholder="Senha" required />
+        <button type="submit">Login</button>
+      </form>
+      <p id="error" class="error"></p>
+      
     </div>
   </div>
 

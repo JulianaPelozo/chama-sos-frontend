@@ -20,12 +20,10 @@
       <input type="text" id="username" placeholder="Usuário" />
       <input type="password" id="password" placeholder="Senha" />
       <button onclick="login()">Login</button>
-      <p id="error" class="error"></p>
+      <p id="error" style="color: red; text-align: center; margin-top: 10px;"></p>
     </div>
   </div>
 
-  <script src="js/login.js"></script>
-  
   <script>
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
@@ -36,6 +34,8 @@
       });
     }
   </script>
+
+  <script src="js/login.js"></script>
 
 </body>
 

@@ -380,4 +380,133 @@ tr:hover {
     .main-content {
         padding: 15px;
     }
+
+    /* ------------------------------ */
+    /* MODAL DE NOVO CADASTRO (VERMELHO PASTEL) */
+    /* ------------------------------ */
+
+    .overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(4px);
+        z-index: 1;
+    }
+
+    .modal {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: #fff7f7;
+        border-radius: 15px;
+        box-shadow: 0 6px 20px rgba(255, 150, 150, 0.3);
+        width: 90%;
+        max-width: 480px;
+        padding: 30px;
+        z-index: 2;
+        animation: fadeInCard 0.5s ease forwards;
+    }
+
+    .modal h2 {
+        text-align: center;
+        color: #b43b3b;
+        margin-bottom: 20px;
+    }
+
+    /* Botão de fechar */
+    .close-btn {
+        position: absolute;
+        top: 12px;
+        right: 15px;
+        background: none;
+        border: none;
+        font-size: 1.3rem;
+        color: #d45a5a;
+        cursor: pointer;
+        transition: transform 0.2s ease, color 0.2s ease;
+    }
+
+    .close-btn:hover {
+        color: #ff8080;
+        transform: scale(1.2);
+    }
+
+    /* Layout do formulário */
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .modal label {
+        font-size: 0.9rem;
+        color: #a44;
+        margin-bottom: 5px;
+    }
+
+    .modal input {
+        width: 100%;
+        padding: 10px;
+        border-radius: 8px;
+        border: 1px solid #f3b6b6;
+        background-color: #fff;
+        transition: 0.3s;
+    }
+
+    .modal input:focus {
+        border-color: #e66;
+        box-shadow: 0 0 5px rgba(230, 102, 102, 0.3);
+        outline: none;
+    }
+
+    /* Botão Confirmar */
+    .btn-confirmar {
+        background-color: #e66;
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 8px;
+        width: 100%;
+        cursor: pointer;
+        font-weight: bold;
+        transition: 0.3s;
+    }
+
+    .btn-confirmar:hover {
+        background-color: #ff8080;
+        box-shadow: 0 4px 10px rgba(255, 128, 128, 0.3);
+    }
+
+    /* Mensagens */
+    .error {
+        color: #b43b3b;
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    .success {
+        color: #28a745;
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    /* Responsivo */
+    @media (max-width: 500px) {
+        .modal {
+            width: 95%;
+            padding: 20px;
+        }
+
+        .btn-confirmar {
+            padding: 10px;
+        }
+    }
+
+
 }

@@ -1,54 +1,77 @@
 const API_URL = "http://localhost:5000/api";
 
-document.addEventListener("DOMContentLoaded", () => {
-  const token = localStorage.getItem("token");
+let usuariosCache = []; 
 
-  // Se o usuário não estiver logado, redireciona
-  if (!token) {
-    window.location.href = "index.html";
-    return;
-  }
+async function verificarToken() {
+    const token = localStorage.getItem("token");
 
-  carregarUsuarios(token);
-});
-
-async function carregarUsuarios(token) {
-  try {
-    const response = await fetch(`${API_URL}/listalogins`, {
-      method: "GET",
-      mode: "cors",
-      headers: {
-        "Authorization": `Bearer ${token}`
-      }
-    });
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      console.error(data.message);
-      window.location.href = "index.html";
-      return;
+    if (!token) {
+        window.location.href = "index.html";
+        return;
     }
 
-    // Exibe os dados na tabela
+    try {
+        const res = await fetch(`${API_URL}/listalogins`, {
+            headers: { Authorization: "Bearer " + token },
+        });
+
+        if (!res.ok) {
+            localStorage.removeItem("token");
+            window.location.href = "index.html";
+            return;
+        }
+
+        const data = await res.json();
+        usuariosCache = data; 
+        preencherTabela(data);
+    } catch (err) {
+        console.error("Erro ao buscar dados:", err);
+    }
+}
+
+function preencherTabela(usuarios) {
     const tbody = document.querySelector("#userTable tbody");
     tbody.innerHTML = "";
 
-    data.forEach((user) => {
-      const tr = document.createElement("tr");
-      tr.innerHTML = `
-        <td>${user._id}</td>
-        <td>${user.name}</td>
-        <td>${user.email}</td>
-      `;
-      tbody.appendChild(tr);
+    usuarios.forEach((user) => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+      <td>${user.id}</td>
+      <td>${user.nome || "—"}</td>
+      <td>${user.email || "—"}</td>
+    `;
+        tbody.appendChild(tr);
     });
-  } catch (error) {
-    console.error("Erro ao carregar usuários:", error);
-  }
 }
 
+document.getElementById("searchInput").addEventListener("input", (e) => {
+    const termo = e.target.value.toLowerCase();
+
+    const filtrados = usuariosCache.filter((u) =>
+        `${u.nome} ${u.email}`.toLowerCase().includes(termo)
+    );
+
+    preencherTabela(filtrados);
+});
+
 function logout() {
-  localStorage.removeItem("token");
-  window.location.href = "index.html";
+    localStorage.removeItem("token");
+    window.location.href = "index.html";
 }
+
+document.getElementById("menu-toggle").addEventListener("click", () => {
+    document.getElementById("sidebar").classList.toggle("active");
+});
+
+verificarToken();
+
+function logout() {
+    localStorage.removeItem("token");
+    window.location.href = "index.html";
+}
+
+document.getElementById("menu-toggle").addEventListener("click", () => {
+    document.getElementById("sidebar").classList.toggle("active");
+});
+
+verificarToken();

@@ -47,7 +47,7 @@ body {
 
 /* Inputs */
 .login-box input {
-    width: 100%;
+    width: 70%;
     padding: 12px;
     margin: 8px 0;
     border: 1px solid #ddd;
@@ -63,7 +63,7 @@ body {
 
 /* Botão com gradiente animado */
 .login-box button {
-    width: 100%;
+    width: 70%;
     padding: 12px;
     margin-top: 10px;
     background: linear-gradient(90deg, #f4a7a7, #f8bfbf, #f4a7a7);

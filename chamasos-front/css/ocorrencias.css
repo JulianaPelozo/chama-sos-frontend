@@ -1,0 +1,126 @@
+@import url('style.css');
+
+/* Container principal */
+.container-ocorrencia {
+    background: var(--branco);
+    border-radius: 20px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 40px;
+    animation: fadeInCard 0.8s ease forwards;
+}
+
+/* Cabeçalho */
+.container-ocorrencia header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.container-ocorrencia h1 {
+    color: #b42f2f;
+    font-size: 1.8rem;
+    margin: 0;
+}
+
+.btn-voltar {
+    background-color: var(--vermelho-pastel);
+    border: none;
+    color: var(--texto);
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.btn-voltar:hover {
+    background-color: var(--vermelho-hover);
+    transform: translateY(-2px);
+}
+
+/* Formulário */
+#ocorrenciaForm {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group label {
+    font-weight: 600;
+    color: #b42f2f;
+    margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #f5caca;
+    background-color: var(--vermelho-claro);
+    font-size: 0.95rem;
+    color: #333;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    background-color: #fff;
+    border-color: #e68a8a;
+    box-shadow: 0 0 5px rgba(230, 138, 138, 0.3);
+    outline: none;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+/* Botão Enviar */
+.btn-enviar {
+    background: linear-gradient(90deg, #f4a7a7, #f8bfbf, #f4a7a7);
+    background-size: 200%;
+    border: none;
+    border-radius: 10px;
+    padding: 14px;
+    font-size: 1rem;
+    color: var(--texto);
+    font-weight: bold;
+    cursor: pointer;
+    animation: gradientMove 5s ease infinite;
+    transition: 0.3s;
+}
+
+.btn-enviar:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 10px rgba(244, 167, 167, 0.7);
+}
+
+/* Mensagens */
+.mensagem {
+    text-align: center;
+    font-weight: 600;
+    margin-top: 15px;
+    color: #b43b3b;
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+    .container-ocorrencia {
+        padding: 25px;
+        margin: 20px auto;
+    }
+
+    .container-ocorrencia h1 {
+        font-size: 1.4rem;
+    }
+
+    .btn-voltar {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+    }
+}

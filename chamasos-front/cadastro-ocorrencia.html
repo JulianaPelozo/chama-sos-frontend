@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastrar Ocorrência</title>
+  <link rel="stylesheet" href="css/ocorrencias.css">
+</head>
+<body>
+  <div class="container-ocorrencia">
+    <header>
+      <h1>Nova Ocorrência</h1>
+      <button id="voltarDashboard" class="btn-voltar">← Voltar ao Dashboard</button>
+    </header>
+
+    <form id="ocorrenciaForm">
+      <div class="form-group">
+        <label for="titulo">Título</label>
+        <input type="text" id="titulo" placeholder="Ex: Incêndio em residência" required>
+      </div>
+
+      <div class="form-group">
+        <label for="descricao">Descrição</label>
+        <textarea id="descricao" placeholder="Descreva o que aconteceu..." required></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="localizacao">Localização</label>
+        <input type="text" id="localizacao" placeholder="Ex: Rua Central, nº 45" required>
+      </div>
+
+      <button type="submit" class="btn-enviar">Registrar Ocorrência</button>
+    </form>
+
+    <div id="mensagem" class="mensagem"></div>
+  </div>
+
+  <script src="js/ocorrencias.js"></script>
+</body>
+</html>

@@ -1,45 +1,45 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Chama SOS - Login</title>
-  <link rel="stylesheet" href="css/style.css" />
-  <link rel="manifest" href="manifest.json" />
-  <meta name="theme-color" content="#e66" />
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Chama SOS</title>
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#d32f2f">
+  <link rel="icon" href="/icons/192.png">
+  <link rel="stylesheet" href="styles/global.css">
+  <meta http-equiv="refresh" content="0; url=login.html">
 </head>
-
 <body>
-  <div class="login-container">
-    <div class="login-box">
-      <h2>Bem vindo!</h2>
-
-      <img src="img/logo.jpg" alt="Logo do Sistema" class="logo" />
-
-      <form id="loginForm">
-        <input type="text" id="usuario" placeholder="Usuário" required />
-        <input type="password" id="senha" placeholder="Senha" required />
-        <button type="submit">Login</button>
-      </form>
-      <p id="error" class="error"></p>
-      
-    </div>
-  </div>
+  <noscript>Você precisa habilitar JavaScript para usar o Chama SOS.</noscript>
 
   <script>
     if ("serviceWorker" in navigator) {
-      window.addEventListener("load", () => {
-        navigator.serviceWorker
-          .register("service-worker.js")
-          .then((reg) => console.log("Service Worker registrado:", reg.scope))
-          .catch((err) => console.log("Erro ao registrar SW:", err));
-      });
+      navigator.serviceWorker.register("/service-worker.js").catch(()=>{});
     }
   </script>
-
-  <script src="js/login.js"></script>
-
 </body>
+
+<aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <img src="logo.svg" class="sidebar-logo" alt="CHAMA SOS">
+        <h3>CHAMA SOS</h3>
+        <button class="sidebar-close" id="sidebarClose"><i class="fas fa-times"></i></button>
+    </div>
+
+    <nav class="sidebar-nav">
+        <a href="dashboard.html"><i class="fas fa-home"></i> Dashboard</a>
+        <a href="ocorrencias.html"><i class="fas fa-list"></i> Ocorrências</a>
+        <a href="nova-ocorrencia.html"><i class="fas fa-plus-circle"></i> Nova Ocorrência</a>
+        <a href="perfil.html"><i class="fas fa-user"></i> Perfil</a>
+        <a class="logout" onclick="logout()">
+            <i class="fas fa-sign-out-alt"></i> Sair
+        </a>
+    </nav>
+</aside>
+
+<button class="sidebar-toggle" id="sidebarToggle">
+    <i class="fas fa-bars"></i>
+</button>
 
 </html>

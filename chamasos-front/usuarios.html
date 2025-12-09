@@ -42,7 +42,7 @@
                             Novo Usuário
                         </button>
                     </div>
-                    
+
                     <div class="search-container">
                         <input type="text" id="searchInput" placeholder="🔍 Pesquisar usuário..." />
                     </div>
@@ -75,10 +75,10 @@
         <div class="modal-content">
             <button class="modal-close" onclick="fecharModal()">✖️</button>
             <h2 id="modalTitle">Editar Usuário</h2>
-            
+
             <form id="userForm">
                 <input type="hidden" id="userId" />
-                
+
                 <div class="form-group">
                     <label for="nome">Nome Completo</label>
                     <input type="text" id="nome" required />
@@ -135,7 +135,7 @@
             <h2>Confirmar Exclusão</h2>
             <p>Tem certeza que deseja excluir o usuário <strong id="deleteUserName"></strong>?</p>
             <p class="warning-text">Esta ação não pode ser desfeita.</p>
-            
+
             <div class="form-actions">
                 <button type="button" class="btn-secondary" onclick="fecharModalDelete()">Cancelar</button>
                 <button type="button" class="btn-danger" onclick="confirmarExclusao()">Excluir</button>
@@ -144,8 +144,15 @@
     </div>
 
     <script src="js/usuarios.js"></script>
+
+    <script>
+        if ("serviceWorker" in navigator) {
+            navigator.serviceWorker
+                .register("service-worker.js")
+                .then(() => console.log("Service Worker registrado com sucesso!"))
+                .catch(err => console.error("Erro ao registrar SW:", err));
+        }
+    </script>
 </body>
 
 </html>
-
-

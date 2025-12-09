@@ -46,11 +46,9 @@ self.addEventListener("activate", event => {
     self.clients.claim();
 });
 
-// Intercepta requisições
 self.addEventListener("fetch", event => {
     event.respondWith(
         caches.match(event.request).then(response => {
-            // Retorna do cache, se disponível
             return (
                 response ||
                 fetch(event.request).catch(() => {

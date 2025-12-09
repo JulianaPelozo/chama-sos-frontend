@@ -91,7 +91,7 @@
 
                 <div class="card">
                     <h3>Preferências do Sistema</h3>
-                    
+
                     <div class="settings-group">
                         <div class="setting-item">
                             <div class="setting-info">
@@ -128,7 +128,7 @@
                     </div>
                 </div>
 
-               
+
                 <div class="card">
                     <h3>ℹSobre o Sistema</h3>
                     <div class="info-grid">
@@ -171,8 +171,12 @@
     </div>
 
     <script src="js/configuracoes.js"></script>
+    <script>
+        if ("serviceWorker" in navigator) {
+            navigator.serviceWorker.register("service-worker.js");
+        }
+    </script>
+
 </body>
 
 </html>
-
-

@@ -37,7 +37,8 @@
             <section id="content">
                 <div class="card">
                     <h3>Registrar Nova Ocorrência</h3>
-                    <p style="color: #888; margin-bottom: 20px;">Preencha os dados abaixo para registrar uma nova ocorrência no sistema.</p>
+                    <p style="color: #888; margin-bottom: 20px;">Preencha os dados abaixo para registrar uma nova
+                        ocorrência no sistema.</p>
 
                     <form id="ocorrenciaForm">
                         <div class="form-group">
@@ -47,12 +48,15 @@
 
                         <div class="form-group">
                             <label for="descricao">Descrição Detalhada</label>
-                            <textarea id="descricao" rows="4" placeholder="Descreva o que aconteceu com o máximo de detalhes possível..." required></textarea>
+                            <textarea id="descricao" rows="4"
+                                placeholder="Descreva o que aconteceu com o máximo de detalhes possível..."
+                                required></textarea>
                         </div>
 
                         <div class="form-group">
                             <label for="localizacao">Localização</label>
-                            <input type="text" id="localizacao" placeholder="Ex: Rua Central, nº 45 - Bairro Centro" required>
+                            <input type="text" id="localizacao" placeholder="Ex: Rua Central, nº 45 - Bairro Centro"
+                                required>
                         </div>
 
                         <div class="form-row">
@@ -91,6 +95,14 @@
     </div>
 
     <script src="js/nova-ocorrencia.js"></script>
+    <script>
+        if ("serviceWorker" in navigator) {
+            navigator.serviceWorker.register("service-worker.js");
+        }
+    </script>
+
+
+
 </body>
 
 </html>

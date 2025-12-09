@@ -1,0 +1,98 @@
+/* Fundo suave */
+body {
+    background: linear-gradient(135deg, #ff0000, #8b0000);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Centralização */
+.login-wrapper {
+    height: 100vh;
+}
+
+/* Card com Glassmorphism */
+.login-card {
+    width: 350px;
+    padding: 35px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 18px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+}
+
+/* Logo */
+.logo {
+    max-width: 160px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+}
+
+/* Inputs customizados */
+.input-group-custom {
+    position: relative;
+    margin-bottom: 18px;
+}
+
+.input-group-custom i {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #444;
+}
+
+.input-group-custom input {
+    width: 100%;
+    padding: 12px 40px;
+    border-radius: 10px;
+    border: none;
+    background: #ffffffd5;
+    box-shadow: inset 0 0 4px rgba(0,0,0,0.2);
+    transition: 0.3s;
+}
+
+.input-group-custom input:focus {
+    border: 2px solid #ff0000;
+    outline: none;
+}
+
+/* Botão de mostrar senha */
+.toggle-password {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: #444;
+}
+
+/* Botão login */
+.btn-login {
+    width: 100%;
+    margin-top: 10px;
+    padding: 12px;
+    font-size: 17px;
+    background-color: #ff0000;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.btn-login:hover {
+    background-color: #cc0000;
+}
+
+/* Animação */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px);}
+    to { opacity: 1; transform: translateY(0);}
+}
+.animate-fadeIn {
+    animation: fadeIn 0.8s ease;
+}

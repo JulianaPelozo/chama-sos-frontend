@@ -3,130 +3,76 @@
 
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Início - Chama SOS</title>
-    <link rel="stylesheet" href="css/style.css" />
-    <link rel="stylesheet" href="css/pages.css" />
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="css/dashboard.css">
 </head>
 
-<body>
-    <div class="dashboard">
-        <aside class="sidebar" id="sidebar">
-            <div class="sidebar-header">
-                <img src="img/logo.jpg" alt="Logo Chama SOS" class="sidebar-logo" />
-                <h3>Chama SOS</h3>
+<body class="bg-light">
+
+    <div class="d-flex">
+        <aside id="sidebar" class="sidebar shadow">
+            <div class="sidebar-header text-center py-4">
+                <img src="img/logo.jpg" class="sidebar-logo mb-2" alt="Logo">
+                <h4 class="m-0">Chama SOS</h4>
             </div>
-            <nav class="sidebar-nav">
-                <a href="home.html" class="active">🏠 Início</a>
-                <a href="usuarios.html">👥 Usuários</a>
-                <a href="ocorrencias.html">🚨 Ocorrências</a>
-                <a href="cadastro-ocorrencia.html">➕ Nova Ocorrência</a>
-                <a href="configuracoes.html">⚙️ Configurações</a>
+
+            <nav class="nav flex-column px-3">
+                <a href="home.html" class="nav-link active">Início</a>
+                <a href="usuarios.html" class="nav-link">Usuários</a>
+                <a href="ocorrencias.html" class="nav-link">Ocorrências</a>
+                <a href="cadastro-ocorrencia.html" class="nav-link">Nova Ocorrência</a>
+                <a href="configuracoes.html" class="nav-link">Configurações</a>
             </nav>
-            <div class="sidebar-footer">
-                <a href="#" onclick="logout()">🚪 Sair</a>
+
+            <div class="sidebar-footer text-center mt-auto pb-3">
+                <button class="btn btn-outline-danger w-75" onclick="logout()">Sair</button>
             </div>
         </aside>
 
-        <div class="main-content">
-            <header class="topbar">
-                <button id="menu-toggle" class="menu-btn">☰</button>
-                <h2>Início</h2>
-                <div class="user-info">
-                    <span id="userName">Carregando...</span>
-                </div>
+        <!-- CONTENT -->
+        <main class="flex-grow-1">
+            <header class="topbar d-flex align-items-center shadow-sm">
+                <button class="btn btn-outline-dark me-3" id="menu-toggle">☰</button>
+                <h2 class="m-0">Início</h2>
+
+                <div class="ms-auto pe-3 fw-bold" id="userName">Carregando...</div>
             </header>
 
-            <section id="content">
-                <!-- Cards de estatísticas -->
-                <div class="stats-grid">
-                    <div class="stat-card stat-users">
-                        <div class="stat-icon">👥</div>
-                        <div class="stat-info">
+            <div class="container py-4">
+
+                <!-- CARDS DE ESTATÍSTICAS -->
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <div class="stat-card p-3 shadow-sm bg-white">
+                            <div class="stat-icon">👥</div>
                             <h3 id="totalUsers">0</h3>
                             <p>Usuários Cadastrados</p>
                         </div>
                     </div>
 
-                    <div class="stat-card stat-occurrences">
-                        <div class="stat-icon">🚨</div>
-                        <div class="stat-info">
+                    <div class="col-md-3">
+                        <div class="stat-card p-3 shadow-sm bg-white">
+                            <div class="stat-icon">🚨</div>
                             <h3 id="totalOccurrences">0</h3>
                             <p>Ocorrências Registradas</p>
                         </div>
                     </div>
 
-                    <div class="stat-card stat-pending">
-                        <div class="stat-icon">⏳</div>
-                        <div class="stat-info">
+                    <div class="col-md-3">
+                        <div class="stat-card p-3 shadow-sm bg-white">
+                            <div class="stat-icon">⏳</div>
                             <h3 id="pendingOccurrences">0</h3>
                             <p>Ocorrências Pendentes</p>
                         </div>
                     </div>
 
-                    <div class="stat-card stat-resolved">
-                        <div class="stat-icon">✅</div>
-                        <div class="stat-info">
+                    <div class="col-md-3">
+                        <div class="stat-card p-3 shadow-sm bg-white">
+                            <div class="stat-icon">✅</div>
                             <h3 id="resolvedOccurrences">0</h3>
-                            <p>Ocorrências Resolvidas</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Ações rápidas -->
-                <div class="card quick-actions">
-                    <h3>⚡ Ações Rápidas</h3>
-                    <div class="actions-grid">
-                        <a href="cadastro-ocorrencia.html" class="action-btn">
-                            <span class="action-icon">🆕</span>
-                            <span>Nova Ocorrência</span>
-                        </a>
-                        <a href="usuarios.html" class="action-btn">
-                            <span class="action-icon">👤</span>
-                            <span>Gerenciar Usuários</span>
-                        </a>
-                        <a href="ocorrencias.html" class="action-btn">
-                            <span class="action-icon">📋</span>
-                            <span>Ver Ocorrências</span>
-                        </a>
-                        <a href="configuracoes.html" class="action-btn">
-                            <span class="action-icon">⚙️</span>
-                            <span>Configurações</span>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Últimas ocorrências -->
-                <div class="card">
-                    <h3>🕐 Últimas Ocorrências</h3>
-                    <div class="table-container">
-                        <table id="recentTable">
-                            <thead>
-                                <tr>
-                                    <th>Título</th>
-                                    <th>Localização</th>
-                                    <th>Status</th>
-                                    <th>Data</th>
-                                </tr>
-                            </thead>
-                            <tbody id="recentOccurrences">
-                                <tr>
-                                    <td colspan="4" class="loading-text">Carregando...</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="card-footer">
-                        <a href="ocorrencias.html" class="link-more">Ver todas as ocorrências →</a>
-                    </div>
-                </div>
-            </section>
-        </div>
-    </div>
-
-    <script src="js/home.js"></script>
-</body>
-
-</html>
-
-
+                            <p>Ocorrências Reso

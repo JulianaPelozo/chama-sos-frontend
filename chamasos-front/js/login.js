@@ -1,39 +1,55 @@
-document.getElementById("loginForm").addEventListener("submit", async (e) => {
-  e.preventDefault();
+document.addEventListener("DOMContentLoaded", () => {
 
-  const identifier = document.getElementById("usuario").value.trim();
-  const password = document.getElementById("senha").value.trim();
-  const errorMsg = document.getElementById("error");
+    const form = document.getElementById("loginForm");
+    const togglePassword = document.getElementById("togglePassword");
+    const senhaInput = document.getElementById("senha");
 
-  errorMsg.textContent = "";
+    togglePassword.addEventListener("click", () => {
+        const type = senhaInput.type === "password" ? "text" : "password";
+        senhaInput.type = type;
 
-  if (!identifier || !password) {
-    errorMsg.textContent = "Preencha usuário e senha.";
-    return;
-  }
-
-  try {
-    const response = await fetch("http://localhost:5000/api/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ identifier, password }),
+        togglePassword.innerHTML =
+            type === "password"
+                ? '<i class="fas fa-eye"></i>'
+                : '<i class="fas fa-eye-slash"></i>';
     });
 
-    const data = await response.json();
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
 
-    if (!response.ok) {
-      errorMsg.textContent = data.message || "Erro ao fazer login.";
-      return;
-    }
+        const matricula = document.getElementById("matricula").value.trim();
+        const senha = document.getElementById("senha").value.trim();
 
-  
-    console.log("✅ Login realizado:", data);
+        if (!matricula || !senha) {
+            alert("Preencha todos os campos.");
+            return;
+        }
 
-    localStorage.setItem("token", data.token);
+        try {
+            const response = await fetch("http://localhost:3000/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ matricula, senha })
+            });
 
-    window.location.href = "home.html"; 
-  } catch (error) {
-    console.error("❌ Erro de conexão:", error);
-    errorMsg.textContent = "Erro de conexão com o servidor.";
-  }
+            const data = await response.json();
+
+            if (!response.ok) {
+                alert(data.message || "Erro ao fazer login.");
+                return;
+            }
+
+            localStorage.setItem("userName", data.nome);
+            localStorage.setItem("token", data.token); 
+
+            window.location.href = "home.html";
+
+        } catch (error) {
+            console.error("Erro no fetch:", error);
+            alert("Não foi possível conectar ao servidor.");
+        }
+    });
+
 });

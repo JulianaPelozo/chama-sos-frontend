@@ -111,5 +111,4 @@ async function confirmarExclusao() {
 
 document.getElementById("occurrenceForm").addEventListener("submit", salvarOcorrencia);
 
-// Inicializar
 carregarOcorrencias();

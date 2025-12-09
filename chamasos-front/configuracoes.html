@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Configurações - Chama SOS</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/pages.css" />
+</head>
+
+<body>
+    <div class="dashboard">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <img src="img/logo.jpg" alt="Logo Chama SOS" class="sidebar-logo" />
+                <h3>Chama SOS</h3>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="home.html">🏠 Início</a>
+                <a href="usuarios.html">👥 Usuários</a>
+                <a href="ocorrencias.html">🚨 Ocorrências</a>
+                <a href="cadastro-ocorrencia.html">➕ Nova Ocorrência</a>
+                <a href="configuracoes.html" class="active">⚙️ Configurações</a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="#" onclick="logout()">🚪 Sair</a>
+            </div>
+        </aside>
+
+        <div class="main-content">
+            <header class="topbar">
+                <button id="menu-toggle" class="menu-btn">☰</button>
+                <h2>Configurações</h2>
+            </header>
+
+            <section id="content">
+                <!-- Configurações do Perfil -->
+                <div class="card">
+                    <h3>👤 Meu Perfil</h3>
+                    <form id="profileForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="profileFirstName">Primeiro Nome</label>
+                                <input type="text" id="profileFirstName" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="profileLastName">Sobrenome</label>
+                                <input type="text" id="profileLastName" required />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="profileEmail">Email</label>
+                            <input type="email" id="profileEmail" required />
+                        </div>
+
+                        <div class="form-actions-inline">
+                            <button type="submit" class="btn-primary">💾 Salvar Alterações</button>
+                        </div>
+                    </form>
+                    <p class="success" id="profileSuccess"></p>
+                    <p class="error" id="profileError"></p>
+                </div>
+
+                <!-- Alterar Senha -->
+                <div class="card">
+                    <h3>🔐 Alterar Senha</h3>
+                    <form id="passwordForm">
+                        <div class="form-group">
+                            <label for="currentPassword">Senha Atual</label>
+                            <input type="password" id="currentPassword" required />
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="newPassword">Nova Senha</label>
+                                <input type="password" id="newPassword" required minlength="6" />
+                            </div>
+                            <div class="form-group">
+                                <label for="confirmPassword">Confirmar Nova Senha</label>
+                                <input type="password" id="confirmPassword" required minlength="6" />
+                            </div>
+                        </div>
+
+                        <div class="form-actions-inline">
+                            <button type="submit" class="btn-primary">🔄 Alterar Senha</button>
+                        </div>
+                    </form>
+                    <p class="success" id="passwordSuccess"></p>
+                    <p class="error" id="passwordError"></p>
+                </div>
+
+                <!-- Configurações do Sistema -->
+                <div class="card">
+                    <h3>⚙️ Preferências do Sistema</h3>
+                    
+                    <div class="settings-group">
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <h4>🌙 Modo Escuro</h4>
+                                <p>Ativar tema escuro para reduzir o cansaço visual</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="darkMode" />
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <h4>🔔 Notificações</h4>
+                                <p>Receber alertas de novas ocorrências</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="notifications" checked />
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <h4>🔊 Sons</h4>
+                                <p>Ativar sons de alerta</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="sounds" checked />
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Informações do Sistema -->
+                <div class="card">
+                    <h3>ℹ️ Sobre o Sistema</h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="info-label">Versão</span>
+                            <span class="info-value">1.0.0</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Última Atualização</span>
+                            <span class="info-value">Dezembro 2024</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Desenvolvido por</span>
+                            <span class="info-value">Equipe Chama SOS</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Zona de Perigo -->
+                <div class="card card-danger">
+                    <h3>⚠️ Zona de Perigo</h3>
+                    <div class="danger-actions">
+                        <div class="danger-item">
+                            <div class="danger-info">
+                                <h4>Limpar Cache Local</h4>
+                                <p>Remove dados temporários armazenados no navegador</p>
+                            </div>
+                            <button class="btn-warning" onclick="limparCache()">Limpar</button>
+                        </div>
+                        <div class="danger-item">
+                            <div class="danger-info">
+                                <h4>Encerrar Todas as Sessões</h4>
+                                <p>Desconecta de todos os dispositivos</p>
+                            </div>
+                            <button class="btn-danger" onclick="encerrarSessoes()">Encerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="js/configuracoes.js"></script>
+</body>
+
+</html>
+
+

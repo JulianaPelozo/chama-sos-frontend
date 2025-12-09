@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Usuários - Chama SOS</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/pages.css" />
+</head>
+
+<body>
+    <div class="dashboard">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <img src="img/logo.jpg" alt="Logo Chama SOS" class="sidebar-logo" />
+                <h3>Chama SOS</h3>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="home.html">🏠 Início</a>
+                <a href="usuarios.html" class="active">👥 Usuários</a>
+                <a href="ocorrencias.html">🚨 Ocorrências</a>
+                <a href="cadastro-ocorrencia.html">➕ Nova Ocorrência</a>
+                <a href="configuracoes.html">⚙️ Configurações</a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="#" onclick="logout()">🚪 Sair</a>
+            </div>
+        </aside>
+
+        <div class="main-content">
+            <header class="topbar">
+                <button id="menu-toggle" class="menu-btn">☰</button>
+                <h2>Gerenciar Usuários</h2>
+            </header>
+
+            <section id="content">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>👥 Usuários Cadastrados</h3>
+                        <button class="btn-primary" onclick="abrirModalNovoUsuario()">
+                            ➕ Novo Usuário
+                        </button>
+                    </div>
+                    
+                    <div class="search-container">
+                        <input type="text" id="searchInput" placeholder="🔍 Pesquisar usuário..." />
+                    </div>
+
+                    <div class="table-container">
+                        <table id="userTable">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nome</th>
+                                    <th>Email</th>
+                                    <th>CPF</th>
+                                    <th>Função</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="userTableBody">
+                                <tr>
+                                    <td colspan="6" class="loading-text">Carregando...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Modal de Edição/Criação -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-content">
+            <button class="modal-close" onclick="fecharModal()">✖️</button>
+            <h2 id="modalTitle">Editar Usuário</h2>
+            
+            <form id="userForm">
+                <input type="hidden" id="userId" />
+                
+                <div class="form-group">
+                    <label for="nome">Nome Completo</label>
+                    <input type="text" id="nome" required />
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="firstName">Primeiro Nome</label>
+                        <input type="text" id="firstName" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Sobrenome</label>
+                        <input type="text" id="lastName" required />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="cpf">CPF</label>
+                    <input type="text" id="cpf" maxlength="14" />
+                </div>
+
+                <div class="form-group">
+                    <label for="role">Função</label>
+                    <select id="role">
+                        <option value="usuario">Usuário</option>
+                        <option value="operador">Operador</option>
+                        <option value="admin">Administrador</option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="senhaGroup">
+                    <label for="senha">Senha <small>(deixe em branco para manter)</small></label>
+                    <input type="password" id="senha" />
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" onclick="fecharModal()">Cancelar</button>
+                    <button type="submit" class="btn-primary">Salvar</button>
+                </div>
+            </form>
+
+            <p class="error" id="modalError"></p>
+            <p class="success" id="modalSuccess"></p>
+        </div>
+    </div>
+
+    <!-- Modal de Confirmação de Exclusão -->
+    <div class="modal-overlay" id="deleteModalOverlay">
+        <div class="modal-content modal-small">
+            <h2>⚠️ Confirmar Exclusão</h2>
+            <p>Tem certeza que deseja excluir o usuário <strong id="deleteUserName"></strong>?</p>
+            <p class="warning-text">Esta ação não pode ser desfeita.</p>
+            
+            <div class="form-actions">
+                <button type="button" class="btn-secondary" onclick="fecharModalDelete()">Cancelar</button>
+                <button type="button" class="btn-danger" onclick="confirmarExclusao()">Excluir</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/usuarios.js"></script>
+</body>
+
+</html>
+
+

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Início - Chama SOS</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/pages.css" />
+</head>
+
+<body>
+    <div class="dashboard">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <img src="img/logo.jpg" alt="Logo Chama SOS" class="sidebar-logo" />
+                <h3>Chama SOS</h3>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="home.html" class="active">🏠 Início</a>
+                <a href="usuarios.html">👥 Usuários</a>
+                <a href="ocorrencias.html">🚨 Ocorrências</a>
+                <a href="cadastro-ocorrencia.html">➕ Nova Ocorrência</a>
+                <a href="configuracoes.html">⚙️ Configurações</a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="#" onclick="logout()">🚪 Sair</a>
+            </div>
+        </aside>
+
+        <div class="main-content">
+            <header class="topbar">
+                <button id="menu-toggle" class="menu-btn">☰</button>
+                <h2>Início</h2>
+                <div class="user-info">
+                    <span id="userName">Carregando...</span>
+                </div>
+            </header>
+
+            <section id="content">
+                <!-- Cards de estatísticas -->
+                <div class="stats-grid">
+                    <div class="stat-card stat-users">
+                        <div class="stat-icon">👥</div>
+                        <div class="stat-info">
+                            <h3 id="totalUsers">0</h3>
+                            <p>Usuários Cadastrados</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card stat-occurrences">
+                        <div class="stat-icon">🚨</div>
+                        <div class="stat-info">
+                            <h3 id="totalOccurrences">0</h3>
+                            <p>Ocorrências Registradas</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card stat-pending">
+                        <div class="stat-icon">⏳</div>
+                        <div class="stat-info">
+                            <h3 id="pendingOccurrences">0</h3>
+                            <p>Ocorrências Pendentes</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card stat-resolved">
+                        <div class="stat-icon">✅</div>
+                        <div class="stat-info">
+                            <h3 id="resolvedOccurrences">0</h3>
+                            <p>Ocorrências Resolvidas</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ações rápidas -->
+                <div class="card quick-actions">
+                    <h3>⚡ Ações Rápidas</h3>
+                    <div class="actions-grid">
+                        <a href="cadastro-ocorrencia.html" class="action-btn">
+                            <span class="action-icon">🆕</span>
+                            <span>Nova Ocorrência</span>
+                        </a>
+                        <a href="usuarios.html" class="action-btn">
+                            <span class="action-icon">👤</span>
+                            <span>Gerenciar Usuários</span>
+                        </a>
+                        <a href="ocorrencias.html" class="action-btn">
+                            <span class="action-icon">📋</span>
+                            <span>Ver Ocorrências</span>
+                        </a>
+                        <a href="configuracoes.html" class="action-btn">
+                            <span class="action-icon">⚙️</span>
+                            <span>Configurações</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Últimas ocorrências -->
+                <div class="card">
+                    <h3>🕐 Últimas Ocorrências</h3>
+                    <div class="table-container">
+                        <table id="recentTable">
+                            <thead>
+                                <tr>
+                                    <th>Título</th>
+                                    <th>Localização</th>
+                                    <th>Status</th>
+                                    <th>Data</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recentOccurrences">
+                                <tr>
+                                    <td colspan="4" class="loading-text">Carregando...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-footer">
+                        <a href="ocorrencias.html" class="link-more">Ver todas as ocorrências →</a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="js/home.js"></script>
+</body>
+
+</html>
+
+

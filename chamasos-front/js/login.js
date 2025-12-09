@@ -31,7 +31,7 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
 
     localStorage.setItem("token", data.token);
 
-    window.location.href = "dashboard.html"; 
+    window.location.href = "home.html"; 
   } catch (error) {
     console.error("❌ Erro de conexão:", error);
     errorMsg.textContent = "Erro de conexão com o servidor.";

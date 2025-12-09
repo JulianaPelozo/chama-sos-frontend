@@ -1,11 +1,28 @@
-const CACHE_NAME = "cap-cache-v1";
+const CACHE_NAME = "chama-sos-cache-v2";
 const urlsToCache = [
     "/",
     "/index.html",
+    "/home.html",
+    "/dashboard.html",
+    "/usuarios.html",
+    "/ocorrencias.html",
+    "/cadastro-ocorrencia.html",
+    "/configuracoes.html",
+    "/register.html",
     "/css/style.css",
+    "/css/pages.css",
+    "/css/ocorrencias.css",
     "/js/login.js",
     "/js/register.js",
-    "/register.html"
+    "/js/home.js",
+    "/js/dashboard.js",
+    "/js/usuarios.js",
+    "/js/ocorrencias-list.js",
+    "/js/nova-ocorrencia.js",
+    "/js/configuracoes.js",
+    "/img/logo.jpg",
+    "/icons/icon-192.png",
+    "/icons/icon-512.png"
 ];
 
 self.addEventListener("install", (event) => {

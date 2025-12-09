@@ -4,19 +4,28 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dashboard - Sistema Vermelho Pastel</title>
+    <title>Dashboard - Chama SOS</title>
     <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/pages.css" />
 </head>
 
 <body>
     <div class="dashboard">
         <aside class="sidebar" id="sidebar">
-            <h3>Menu</h3>
-            <a href="#">Início</a>
-            <a href="#">Usuários</a>
-            <a href="#">Configurações</a>
-            <a href="cadastro-ocorrencia.html">Nova Ocorrência</a>
-            <a href="#" onclick="logout()">Sair</a>
+            <div class="sidebar-header">
+                <img src="img/logo.jpg" alt="Logo Chama SOS" class="sidebar-logo" />
+                <h3>Chama SOS</h3>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="home.html">🏠 Início</a>
+                <a href="usuarios.html">👥 Usuários</a>
+                <a href="ocorrencias.html">🚨 Ocorrências</a>
+                <a href="cadastro-ocorrencia.html">➕ Nova Ocorrência</a>
+                <a href="configuracoes.html">⚙️ Configurações</a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="#" onclick="logout()">🚪 Sair</a>
+            </div>
         </aside>
 
         <div class="main-content">
@@ -27,10 +36,11 @@
 
             <section id="content">
                 <div class="card">
-                    <h3>Logins cadastrados no sistema</h3>
-                    <p>Abaixo estão os logins registrados no sistema.</p>
+                    <h3>👥 Logins Cadastrados no Sistema</h3>
+                    <p style="color: #888; margin-bottom: 15px;">Abaixo estão os logins registrados no sistema.</p>
+                    
                     <div class="search-container">
-                        <input type="text" id="searchInput" placeholder="Pesquisar usuário..." />
+                        <input type="text" id="searchInput" placeholder="🔍 Pesquisar usuário..." />
                     </div>
 
                     <div class="table-container">
@@ -40,9 +50,15 @@
                                     <th>ID</th>
                                     <th>Nome</th>
                                     <th>Email</th>
+                                    <th>CPF</th>
+                                    <th>Função</th>
                                 </tr>
                             </thead>
-                            <tbody></tbody>
+                            <tbody>
+                                <tr>
+                                    <td colspan="5" class="loading-text">Carregando...</td>
+                                </tr>
+                            </tbody>
                         </table>
                     </div>
                 </div>

@@ -5,9 +5,9 @@ document
     .addEventListener("submit", async (e) => {
         e.preventDefault();
 
-        const nome = document.getElementById("nome").value;
+        const nome = document.getElementById("nome").value.trim();
         const dataNascimento = document.getElementById("dataNascimento").value;
-        const cpf = document.getElementById("cpf").value;
+        const cpf = document.getElementById("cpf").value.trim();
         const senha = document.getElementById("senha").value;
         const confirmarSenha = document.getElementById("confirmarSenha").value;
 
@@ -17,8 +17,24 @@ document
         errorEl.textContent = "";
         successEl.textContent = "";
 
+        if (!nome || !dataNascimento || !cpf || !senha) {
+            errorEl.textContent = "Preencha todos os campos obrigatórios.";
+            return;
+        }
+
         if (senha !== confirmarSenha) {
             errorEl.textContent = "As senhas não coincidem.";
+            return;
+        }
+
+        if (senha.length < 6) {
+            errorEl.textContent = "A senha deve ter pelo menos 6 caracteres.";
+            return;
+        }
+
+        const cpfLimpo = cpf.replace(/\D/g, "");
+        if (cpfLimpo.length !== 11) {
+            errorEl.textContent = "CPF inválido. Digite os 11 dígitos.";
             return;
         }
 
@@ -29,7 +45,7 @@ document
                 body: JSON.stringify({
                     nome,
                     dataNascimento,
-                    cpf,
+                    cpf: cpfLimpo,
                     senha,
                 }),
             });
@@ -53,5 +69,20 @@ document
     });
 
 document.getElementById("closeBtn").addEventListener("click", () => {
-    window.location.href = "dashboard.html";
+    window.location.href = "index.html";
+});
+
+document.getElementById("cpf").addEventListener("input", (e) => {
+    let value = e.target.value.replace(/\D/g, "");
+    if (value.length > 11) value = value.slice(0, 11);
+    
+    if (value.length > 9) {
+        value = value.replace(/(\d{3})(\d{3})(\d{3})(\d{1,2})/, "$1.$2.$3-$4");
+    } else if (value.length > 6) {
+        value = value.replace(/(\d{3})(\d{3})(\d{1,3})/, "$1.$2.$3");
+    } else if (value.length > 3) {
+        value = value.replace(/(\d{3})(\d{1,3})/, "$1.$2");
+    }
+    
+    e.target.value = value;
 });

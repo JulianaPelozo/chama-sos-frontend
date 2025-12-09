@@ -1,40 +1,96 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cadastrar Ocorrência</title>
-  <link rel="stylesheet" href="css/ocorrencias.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nova Ocorrência - Chama SOS</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/pages.css">
 </head>
+
 <body>
-  <div class="container-ocorrencia">
-    <header>
-      <h1>Nova Ocorrência</h1>
-      <button id="voltarDashboard" class="btn-voltar">← Voltar ao Dashboard</button>
-    </header>
+    <div class="dashboard">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <img src="img/logo.jpg" alt="Logo Chama SOS" class="sidebar-logo" />
+                <h3>Chama SOS</h3>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="home.html">🏠 Início</a>
+                <a href="usuarios.html">👥 Usuários</a>
+                <a href="ocorrencias.html">🚨 Ocorrências</a>
+                <a href="cadastro-ocorrencia.html" class="active">➕ Nova Ocorrência</a>
+                <a href="configuracoes.html">⚙️ Configurações</a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="#" onclick="logout()">🚪 Sair</a>
+            </div>
+        </aside>
 
-    <form id="ocorrenciaForm">
-      <div class="form-group">
-        <label for="titulo">Título</label>
-        <input type="text" id="titulo" placeholder="Ex: Incêndio em residência" required>
-      </div>
+        <div class="main-content">
+            <header class="topbar">
+                <button id="menu-toggle" class="menu-btn">☰</button>
+                <h2>Nova Ocorrência</h2>
+            </header>
 
-      <div class="form-group">
-        <label for="descricao">Descrição</label>
-        <textarea id="descricao" placeholder="Descreva o que aconteceu..." required></textarea>
-      </div>
+            <section id="content">
+                <div class="card">
+                    <h3>🆕 Registrar Nova Ocorrência</h3>
+                    <p style="color: #888; margin-bottom: 20px;">Preencha os dados abaixo para registrar uma nova ocorrência no sistema.</p>
 
-      <div class="form-group">
-        <label for="localizacao">Localização</label>
-        <input type="text" id="localizacao" placeholder="Ex: Rua Central, nº 45" required>
-      </div>
+                    <form id="ocorrenciaForm">
+                        <div class="form-group">
+                            <label for="titulo">Título da Ocorrência</label>
+                            <input type="text" id="titulo" placeholder="Ex: Incêndio em residência" required>
+                        </div>
 
-      <button type="submit" class="btn-enviar">Registrar Ocorrência</button>
-    </form>
+                        <div class="form-group">
+                            <label for="descricao">Descrição Detalhada</label>
+                            <textarea id="descricao" rows="4" placeholder="Descreva o que aconteceu com o máximo de detalhes possível..." required></textarea>
+                        </div>
 
-    <div id="mensagem" class="mensagem"></div>
-  </div>
+                        <div class="form-group">
+                            <label for="localizacao">Localização</label>
+                            <input type="text" id="localizacao" placeholder="Ex: Rua Central, nº 45 - Bairro Centro" required>
+                        </div>
 
-  <script src="js/ocorrencias.js"></script>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="prioridade">Prioridade</label>
+                                <select id="prioridade">
+                                    <option value="baixa">🟢 Baixa</option>
+                                    <option value="media" selected>🟡 Média</option>
+                                    <option value="alta">🟠 Alta</option>
+                                    <option value="urgente">🔴 Urgente</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="tipo">Tipo de Ocorrência</label>
+                                <select id="tipo">
+                                    <option value="incendio">🔥 Incêndio</option>
+                                    <option value="resgate">🚑 Resgate</option>
+                                    <option value="acidente">🚗 Acidente</option>
+                                    <option value="enchente">🌊 Enchente</option>
+                                    <option value="outros">📋 Outros</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-actions-inline">
+                            <button type="submit" class="btn-primary" style="width: 100%; padding: 15px;">
+                                🚨 Registrar Ocorrência
+                            </button>
+                        </div>
+                    </form>
+
+                    <div id="mensagem" class="mensagem" style="margin-top: 15px;"></div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="js/nova-ocorrencia.js"></script>
 </body>
+
 </html>

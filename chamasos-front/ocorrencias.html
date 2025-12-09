@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ocorrências - Chama SOS</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/pages.css" />
+</head>
+
+<body>
+    <div class="dashboard">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <img src="img/logo.jpg" alt="Logo Chama SOS" class="sidebar-logo" />
+                <h3>Chama SOS</h3>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="home.html">🏠 Início</a>
+                <a href="usuarios.html">👥 Usuários</a>
+                <a href="ocorrencias.html" class="active">🚨 Ocorrências</a>
+                <a href="cadastro-ocorrencia.html">➕ Nova Ocorrência</a>
+                <a href="configuracoes.html">⚙️ Configurações</a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="#" onclick="logout()">🚪 Sair</a>
+            </div>
+        </aside>
+
+        <div class="main-content">
+            <header class="topbar">
+                <button id="menu-toggle" class="menu-btn">☰</button>
+                <h2>Gerenciar Ocorrências</h2>
+            </header>
+
+            <section id="content">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>🚨 Todas as Ocorrências</h3>
+                        <a href="cadastro-ocorrencia.html" class="btn-primary">
+                            ➕ Nova Ocorrência
+                        </a>
+                    </div>
+
+                    <!-- Filtros -->
+                    <div class="filters-container">
+                        <div class="search-container">
+                            <input type="text" id="searchInput" placeholder="🔍 Pesquisar ocorrência..." />
+                        </div>
+                        <div class="filter-group">
+                            <select id="filterStatus">
+                                <option value="">Todos os Status</option>
+                                <option value="pendente">Pendente</option>
+                                <option value="em_andamento">Em Andamento</option>
+                                <option value="resolvida">Resolvida</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Contadores -->
+                    <div class="status-counters">
+                        <div class="counter counter-all">
+                            <span class="counter-value" id="countAll">0</span>
+                            <span class="counter-label">Total</span>
+                        </div>
+                        <div class="counter counter-pending">
+                            <span class="counter-value" id="countPending">0</span>
+                            <span class="counter-label">Pendentes</span>
+                        </div>
+                        <div class="counter counter-progress">
+                            <span class="counter-value" id="countProgress">0</span>
+                            <span class="counter-label">Em Andamento</span>
+                        </div>
+                        <div class="counter counter-resolved">
+                            <span class="counter-value" id="countResolved">0</span>
+                            <span class="counter-label">Resolvidas</span>
+                        </div>
+                    </div>
+
+                    <!-- Tabela de Ocorrências -->
+                    <div class="table-container">
+                        <table id="occurrenceTable">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Título</th>
+                                    <th>Localização</th>
+                                    <th>Status</th>
+                                    <th>Data</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="occurrenceTableBody">
+                                <tr>
+                                    <td colspan="6" class="loading-text">Carregando...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Modal de Visualização/Edição -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-content modal-large">
+            <button class="modal-close" onclick="fecharModal()">✖️</button>
+            <h2 id="modalTitle">Detalhes da Ocorrência</h2>
+
+            <form id="occurrenceForm">
+                <input type="hidden" id="occurrenceId" />
+
+                <div class="form-group">
+                    <label for="titulo">Título</label>
+                    <input type="text" id="titulo" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="descricao">Descrição</label>
+                    <textarea id="descricao" rows="4" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="localizacao">Localização</label>
+                    <input type="text" id="localizacao" required />
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="status">Status</label>
+                        <select id="status">
+                            <option value="pendente">⏳ Pendente</option>
+                            <option value="em_andamento">🔄 Em Andamento</option>
+                            <option value="resolvida">✅ Resolvida</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="prioridade">Prioridade</label>
+                        <select id="prioridade">
+                            <option value="baixa">🟢 Baixa</option>
+                            <option value="media">🟡 Média</option>
+                            <option value="alta">🟠 Alta</option>
+                            <option value="urgente">🔴 Urgente</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="observacoes">Observações</label>
+                    <textarea id="observacoes" rows="2" placeholder="Anotações adicionais..."></textarea>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" onclick="fecharModal()">Cancelar</button>
+                    <button type="submit" class="btn-primary">💾 Salvar</button>
+                </div>
+            </form>
+
+            <p class="error" id="modalError"></p>
+            <p class="success" id="modalSuccess"></p>
+        </div>
+    </div>
+
+    <!-- Modal de Confirmação de Exclusão -->
+    <div class="modal-overlay" id="deleteModalOverlay">
+        <div class="modal-content modal-small">
+            <h2>⚠️ Confirmar Exclusão</h2>
+            <p>Tem certeza que deseja excluir a ocorrência <strong id="deleteOccurrenceName"></strong>?</p>
+            <p class="warning-text">Esta ação não pode ser desfeita.</p>
+
+            <div class="form-actions">
+                <button type="button" class="btn-secondary" onclick="fecharModalDelete()">Cancelar</button>
+                <button type="button" class="btn-danger" onclick="confirmarExclusao()">Excluir</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/ocorrencias-list.js"></script>
+</body>
+
+</html>
+
+

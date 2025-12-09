@@ -1,196 +1,127 @@
-const API_URL = "http://localhost:5000/api";
+document.addEventListener("DOMContentLoaded", () => {
 
-function verificarAuth() {
-    const token = localStorage.getItem("token");
-    if (!token) {
-        window.location.href = "index.html";
-        return null;
-    }
-    return token;
-}
 
-async function carregarPerfil() {
-    const token = verificarAuth();
-    if (!token) return;
+    const profileForm = document.getElementById("profileForm");
+    const profileSuccess = document.getElementById("profileSuccess");
+    const profileError = document.getElementById("profileError");
 
-    try {
-        const res = await fetch(`${API_URL}/me`, {
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: "Bearer " + token,
-            },
-        });
+    profileForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
 
-        if (res.ok) {
-            const user = await res.json();
-            document.getElementById("profileFirstName").value = user.firstName || "";
-            document.getElementById("profileLastName").value = user.lastName || "";
-            document.getElementById("profileEmail").value = user.email || "";
+        const dados = {
+            firstName: document.getElementById("profileFirstName").value,
+            lastName: document.getElementById("profileLastName").value,
+            email: document.getElementById("profileEmail").value
+        };
+
+        try {
+            const response = await fetch("http://localhost:3000/usuario/perfil", {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(dados)
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                mostrar(profileSuccess, "Alterações salvas com sucesso!");
+            } else {
+                mostrar(profileError, result.message || "Erro ao salvar.");
+            }
+        } catch (error) {
+            mostrar(profileError, "Erro ao conectar ao servidor.");
         }
-    } catch (error) {
-        console.error("Erro ao carregar perfil:", error);
+    });
+
+
+
+    const passwordForm = document.getElementById("passwordForm");
+    const passwordSuccess = document.getElementById("passwordSuccess");
+    const passwordError = document.getElementById("passwordError");
+
+    passwordForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const nova = document.getElementById("newPassword").value;
+        const confirm = document.getElementById("confirmPassword").value;
+
+        if (nova !== confirm) {
+            mostrar(passwordError, "As senhas não coincidem!");
+            return;
+        }
+
+        const dados = {
+            senhaAtual: document.getElementById("currentPassword").value,
+            novaSenha: nova
+        };
+
+        try {
+            const response = await fetch("http://localhost:3000/usuario/senha", {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(dados)
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                mostrar(passwordSuccess, "Senha alterada com sucesso!");
+                passwordForm.reset();
+            } else {
+                mostrar(passwordError, result.message || "Erro ao alterar senha.");
+            }
+        } catch (error) {
+            mostrar(passwordError, "Erro ao conectar ao servidor.");
+        }
+    });
+
+
+    const darkMode = document.getElementById("darkMode");
+    const notifications = document.getElementById("notifications");
+    const sounds = document.getElementById("sounds");
+
+    if (localStorage.getItem("darkMode") === "true") {
+        darkMode.checked = true;
+        document.body.classList.add("dark");
     }
-}
 
-document.getElementById("profileForm").addEventListener("submit", async (e) => {
-    e.preventDefault();
+    notifications.checked = localStorage.getItem("notifications") !== "false";
+    sounds.checked = localStorage.getItem("sounds") !== "false";
 
-    const token = verificarAuth();
-    if (!token) return;
+    darkMode.addEventListener("change", () => {
+        if (darkMode.checked) {
+            document.body.classList.add("dark");
+            localStorage.setItem("darkMode", "true");
+        } else {
+            document.body.classList.remove("dark");
+            localStorage.setItem("darkMode", "false");
+        }
+    });
 
-    const dados = {
-        firstName: document.getElementById("profileFirstName").value,
-        lastName: document.getElementById("profileLastName").value,
-        email: document.getElementById("profileEmail").value,
+    notifications.addEventListener("change", () => {
+        localStorage.setItem("notifications", notifications.checked);
+    });
+
+    sounds.addEventListener("change", () => {
+        localStorage.setItem("sounds", sounds.checked);
+    });
+
+
+
+    window.limparCache = () => {
+        localStorage.clear();
+        alert("Cache local limpo!");
     };
 
-    const successEl = document.getElementById("profileSuccess");
-    const errorEl = document.getElementById("profileError");
-    successEl.textContent = "";
-    errorEl.textContent = "";
+    window.encerrarSessoes = () => {
+        fetch("http://localhost:3000/logoutTodas", { method: "POST" });
+        alert("Todas as sessões foram encerradas!");
+    };
 
-    try {
-        const res = await fetch(`${API_URL}/me`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: "Bearer " + token,
-            },
-            body: JSON.stringify(dados),
-        });
-
-        if (res.ok) {
-            successEl.textContent = "Perfil atualizado com sucesso!";
-            setTimeout(() => successEl.textContent = "", 3000);
-        } else {
-            const data = await res.json();
-            errorEl.textContent = data.message || "Erro ao atualizar perfil";
-        }
-    } catch (error) {
-        console.error("Erro:", error);
-        errorEl.textContent = "Erro ao conectar com o servidor";
+   
+    function mostrar(el, msg) {
+        el.textContent = msg;
+        el.style.display = "block";
+        setTimeout(() => el.style.display = "none", 3500);
     }
 });
-
-document.getElementById("passwordForm").addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    const token = verificarAuth();
-    if (!token) return;
-
-    const currentPassword = document.getElementById("currentPassword").value;
-    const newPassword = document.getElementById("newPassword").value;
-    const confirmPassword = document.getElementById("confirmPassword").value;
-
-    const successEl = document.getElementById("passwordSuccess");
-    const errorEl = document.getElementById("passwordError");
-    successEl.textContent = "";
-    errorEl.textContent = "";
-
-    if (newPassword !== confirmPassword) {
-        errorEl.textContent = "As senhas não coincidem";
-        return;
-    }
-
-    if (newPassword.length < 6) {
-        errorEl.textContent = "A nova senha deve ter pelo menos 6 caracteres";
-        return;
-    }
-
-    try {
-        const res = await fetch(`${API_URL}/change-password`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: "Bearer " + token,
-            },
-            body: JSON.stringify({
-                currentPassword,
-                newPassword,
-            }),
-        });
-
-        if (res.ok) {
-            successEl.textContent = "Senha alterada com sucesso!";
-            document.getElementById("passwordForm").reset();
-            setTimeout(() => successEl.textContent = "", 3000);
-        } else {
-            const data = await res.json();
-            errorEl.textContent = data.message || "Erro ao alterar senha";
-        }
-    } catch (error) {
-        console.error("Erro:", error);
-        errorEl.textContent = "Erro ao conectar com o servidor";
-    }
-});
-
-function carregarConfiguracoes() {
-    const darkMode = localStorage.getItem("darkMode") === "true";
-    const notifications = localStorage.getItem("notifications") !== "false";
-    const sounds = localStorage.getItem("sounds") !== "false";
-
-    document.getElementById("darkMode").checked = darkMode;
-    document.getElementById("notifications").checked = notifications;
-    document.getElementById("sounds").checked = sounds;
-
-    if (darkMode) {
-        document.body.classList.add("dark-mode");
-    }
-}
-
-document.getElementById("darkMode").addEventListener("change", (e) => {
-    localStorage.setItem("darkMode", e.target.checked);
-    document.body.classList.toggle("dark-mode", e.target.checked);
-});
-
-document.getElementById("notifications").addEventListener("change", (e) => {
-    localStorage.setItem("notifications", e.target.checked);
-});
-
-document.getElementById("sounds").addEventListener("change", (e) => {
-    localStorage.setItem("sounds", e.target.checked);
-});
-
-function limparCache() {
-    if (confirm("Tem certeza que deseja limpar o cache local?")) {
-        const token = localStorage.getItem("token");
-        
-        const keysToRemove = [];
-        for (let i = 0; i < localStorage.length; i++) {
-            const key = localStorage.key(i);
-            if (key !== "token") {
-                keysToRemove.push(key);
-            }
-        }
-        keysToRemove.forEach(key => localStorage.removeItem(key));
-
-        if ("caches" in window) {
-            caches.keys().then(names => {
-                names.forEach(name => caches.delete(name));
-            });
-        }
-
-        alert("Cache limpo com sucesso!");
-        location.reload();
-    }
-}
-
-function encerrarSessoes() {
-    if (confirm("Tem certeza que deseja encerrar todas as sessões? Você será desconectado.")) {
-        localStorage.clear();
-        sessionStorage.clear();
-        window.location.href = "index.html";
-    }
-}
-
-function logout() {
-    localStorage.removeItem("token");
-    window.location.href = "index.html";
-}
-
-document.getElementById("menu-toggle").addEventListener("click", () => {
-    document.getElementById("sidebar").classList.toggle("active");
-});
-
-carregarPerfil();
-carregarConfiguracoes();

@@ -1,0 +1,72 @@
+/* ——— FILTROS ——— */
+.filters-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    gap: 10px;
+}
+
+.search-container input {
+    width: 260px;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+
+/* ——— CONTADORES ——— */
+.status-counters {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+    gap: 15px;
+}
+
+.counter {
+    flex: 1;
+    background: #fff;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.counter-value {
+    font-size: 26px;
+    font-weight: bold;
+    display: block;
+}
+
+.counter-label {
+    font-size: 13px;
+    color: #555;
+}
+
+/* ——— TABELA ——— */
+.table-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead th {
+    background: #f3f3f3;
+    padding: 12px;
+}
+
+tbody td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+.loading-text {
+    text-align: center;
+    padding: 20px;
+}
+
+/* ——— MODAL ——— */
+.modal-large {
+    width: 650px !important;
+}

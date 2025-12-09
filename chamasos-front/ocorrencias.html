@@ -5,8 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ocorrências - Chama SOS</title>
-    <link rel="stylesheet" href="css/style.css" />
-    <link rel="stylesheet" href="css/pages.css" />
+    <link rel="stylesheet" href="css/ocorrencias.css" />
 </head>
 
 <body>
@@ -17,14 +16,14 @@
                 <h3>Chama SOS</h3>
             </div>
             <nav class="sidebar-nav">
-                <a href="home.html">🏠 Início</a>
-                <a href="usuarios.html">👥 Usuários</a>
-                <a href="ocorrencias.html" class="active">🚨 Ocorrências</a>
-                <a href="cadastro-ocorrencia.html">➕ Nova Ocorrência</a>
-                <a href="configuracoes.html">⚙️ Configurações</a>
+                <a href="home.html">Início</a>
+                <a href="usuarios.html">Usuários</a>
+                <a href="ocorrencias.html" class="active">Ocorrências</a>
+                <a href="cadastro-ocorrencia.html">Nova Ocorrência</a>
+                <a href="configuracoes.html">Configurações</a>
             </nav>
             <div class="sidebar-footer">
-                <a href="#" onclick="logout()">🚪 Sair</a>
+                <a href="#" onclick="logout()">Sair</a>
             </div>
         </aside>
 
@@ -37,13 +36,12 @@
             <section id="content">
                 <div class="card">
                     <div class="card-header">
-                        <h3>🚨 Todas as Ocorrências</h3>
+                        <h3>Todas as Ocorrências</h3>
                         <a href="cadastro-ocorrencia.html" class="btn-primary">
-                            ➕ Nova Ocorrência
+                            Nova Ocorrência
                         </a>
                     </div>
 
-                    <!-- Filtros -->
                     <div class="filters-container">
                         <div class="search-container">
                             <input type="text" id="searchInput" placeholder="🔍 Pesquisar ocorrência..." />
@@ -58,7 +56,6 @@
                         </div>
                     </div>
 
-                    <!-- Contadores -->
                     <div class="status-counters">
                         <div class="counter counter-all">
                             <span class="counter-value" id="countAll">0</span>
@@ -78,7 +75,6 @@
                         </div>
                     </div>
 
-                    <!-- Tabela de Ocorrências -->
                     <div class="table-container">
                         <table id="occurrenceTable">
                             <thead>
@@ -103,7 +99,6 @@
         </div>
     </div>
 
-    <!-- Modal de Visualização/Edição -->
     <div class="modal-overlay" id="modalOverlay">
         <div class="modal-content modal-large">
             <button class="modal-close" onclick="fecharModal()">✖️</button>
@@ -178,6 +173,15 @@
     </div>
 
     <script src="js/ocorrencias-list.js"></script>
+
+    <script>
+if ("serviceWorker" in navigator) {
+    navigator.serviceWorker
+        .register("service-worker.js")
+        .then(() => console.log("Service Worker registrado com sucesso!"))
+        .catch(err => console.error("Erro ao registrar SW:", err));
+}
+</script>
 </body>
 
 </html>

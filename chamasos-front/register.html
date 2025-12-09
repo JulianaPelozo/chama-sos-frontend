@@ -5,15 +5,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Novo Cadastro - Chama SOS</title>
-    <link rel="stylesheet" href="css/style.css" />
-    <link rel="stylesheet" href="css/pages.css" />
+    <link rel="stylesheet" href="css/register.css" />
 </head>
 
 <body>
     <div class="modal-overlay active" style="background: linear-gradient(135deg, #ffe3e3, #fff5f5);">
         <div class="modal-content">
             <button class="modal-close" id="closeBtn">✖️</button>
-            <h2 style="text-align: center;">📝 Novo Cadastro</h2>
+            <h2 style="text-align: center;">Novo Cadastro</h2>
 
             <form id="registerForm">
                 <div class="form-group">
@@ -39,12 +38,13 @@
 
                     <div class="form-group">
                         <label for="confirmarSenha">Confirmar Senha</label>
-                        <input type="password" id="confirmarSenha" placeholder="Repita a senha" required minlength="6" />
+                        <input type="password" id="confirmarSenha" placeholder="Repita a senha" required
+                            minlength="6" />
                     </div>
                 </div>
 
                 <div class="form-actions-inline">
-                    <button type="submit" class="btn-primary" style="width: 100%;">✅ Confirmar Cadastro</button>
+                    <button type="submit" class="btn-primary" style="width: 100%;">Confirmar Cadastro</button>
                 </div>
             </form>
 
@@ -58,6 +58,15 @@
     </div>
 
     <script src="js/register.js"></script>
+
+    <script>
+        if ("serviceWorker" in navigator) {
+            navigator.serviceWorker
+                .register("service-worker.js")
+                .then(() => console.log("Service Worker registrado com sucesso!"))
+                .catch(err => console.error("Erro ao registrar SW:", err));
+        }
+    </script>
 </body>
 
 </html>

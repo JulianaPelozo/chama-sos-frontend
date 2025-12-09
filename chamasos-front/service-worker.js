@@ -1,56 +1,62 @@
-const CACHE_NAME = "chama-sos-cache-v2";
-const urlsToCache = [
+const CACHE_NAME = "chama-sos-v1";
+const FILES_TO_CACHE = [
     "/",
     "/index.html",
     "/home.html",
-    "/dashboard.html",
     "/usuarios.html",
     "/ocorrencias.html",
     "/cadastro-ocorrencia.html",
     "/configuracoes.html",
-    "/register.html",
+
     "/css/style.css",
     "/css/pages.css",
-    "/css/ocorrencias.css",
+
     "/js/login.js",
     "/js/register.js",
-    "/js/home.js",
     "/js/dashboard.js",
-    "/js/usuarios.js",
-    "/js/ocorrencias-list.js",
-    "/js/nova-ocorrencia.js",
-    "/js/configuracoes.js",
-    "/img/logo.jpg",
-    "/icons/icon-192.png",
-    "/icons/icon-512.png"
+
+    "/img/logo.jpg"
 ];
 
-self.addEventListener("install", (event) => {
+self.addEventListener("install", event => {
+    console.log("[SW] Instalando service worker...");
     event.waitUntil(
-        caches.open(CACHE_NAME).then((cache) => {
-            console.log("Arquivos em cache");
-            return cache.addAll(urlsToCache);
+        caches.open(CACHE_NAME).then(cache => {
+            console.log("[SW] Fazendo cache dos arquivos...");
+            return cache.addAll(FILES_TO_CACHE);
         })
     );
+    self.skipWaiting();
 });
 
-self.addEventListener("activate", (event) => {
+self.addEventListener("activate", event => {
+    console.log("[SW] Ativo!");
     event.waitUntil(
-        caches.keys().then((cacheNames) =>
-            Promise.all(
-                cacheNames
-                    .filter((name) => name !== CACHE_NAME)
-                    .map((name) => caches.delete(name))
-            )
-        )
+        caches.keys().then(keys => {
+            return Promise.all(
+                keys.map(key => {
+                    if (key !== CACHE_NAME) {
+                        console.log("[SW] Removendo cache antigo", key);
+                        return caches.delete(key);
+                    }
+                })
+            );
+        })
     );
+    self.clients.claim();
 });
 
-
-self.addEventListener("fetch", (event) => {
+// Intercepta requisições
+self.addEventListener("fetch", event => {
     event.respondWith(
-        caches.match(event.request).then((response) => {
-            return response || fetch(event.request);
+        caches.match(event.request).then(response => {
+            // Retorna do cache, se disponível
+            return (
+                response ||
+                fetch(event.request).catch(() => {
+                    console.warn("[SW] Offline e sem cache:", event.request.url);
+                })
+            );
         })
     );
 });

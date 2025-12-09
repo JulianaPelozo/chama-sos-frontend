@@ -1,85 +1,49 @@
-const API_URL = "http://localhost:5000/api";
+document.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("ocorrenciaForm");
+    const msg = document.getElementById("mensagem");
 
-function verificarAuth() {
-    const token = localStorage.getItem("token");
-    if (!token) {
-        window.location.href = "index.html";
-        return null;
-    }
-    return token;
-}
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
 
-document.getElementById("ocorrenciaForm").addEventListener("submit", async (e) => {
-    e.preventDefault();
+        const dados = {
+            titulo: document.getElementById("titulo").value.trim(),
+            descricao: document.getElementById("descricao").value.trim(),
+            localizacao: document.getElementById("localizacao").value.trim(),
+            prioridade: document.getElementById("prioridade").value,
+            tipo: document.getElementById("tipo").value
+        };
 
-    const token = verificarAuth();
-    if (!token) return;
+        try {
+            const response = await fetch("http://localhost:3000/ocorrencias", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(dados)
+            });
 
-    const titulo = document.getElementById("titulo").value.trim();
-    const descricao = document.getElementById("descricao").value.trim();
-    const localizacao = document.getElementById("localizacao").value.trim();
-    const prioridade = document.getElementById("prioridade").value;
-    const tipo = document.getElementById("tipo").value;
-    const mensagemEl = document.getElementById("mensagem");
+            const result = await response.json();
 
-    mensagemEl.textContent = "";
-    mensagemEl.style.color = "";
+            if (response.ok) {
+                mostrarMensagem("Ocorrência registrada com sucesso!", "sucesso");
 
-    try {
-        const res = await fetch(`${API_URL}/ocorrencias/novaocorrencia`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: "Bearer " + token,
-            },
-            body: JSON.stringify({ 
-                titulo, 
-                descricao, 
-                localizacao,
-                prioridade,
-                tipo,
-                status: "pendente"
-            }),
-        });
-
-        const data = await res.json();
-
-        if (res.ok) {
-            mensagemEl.innerHTML = `
-                <div style="background: #d4edda; color: #155724; padding: 15px; border-radius: 10px; text-align: center;">
-                    ✅ Ocorrência registrada com sucesso!<br>
-                    <small>Redirecionando para a lista de ocorrências...</small>
-                </div>
-            `;
-            e.target.reset();
-
-            setTimeout(() => {
-                window.location.href = "ocorrencias.html";
-            }, 2000);
-        } else {
-            mensagemEl.innerHTML = `
-                <div style="background: #f8d7da; color: #721c24; padding: 15px; border-radius: 10px; text-align: center;">
-                    ❌ ${data.message || "Erro ao registrar ocorrência."}
-                </div>
-            `;
+                form.reset();
+            } else {
+                mostrarMensagem(result.message || "Erro ao registrar ocorrência", "erro");
+            }
+        } catch (error) {
+            console.error(error);
+            mostrarMensagem("Erro ao conectar com o servidor", "erro");
         }
-    } catch (err) {
-        console.error("Erro:", err);
-        mensagemEl.innerHTML = `
-            <div style="background: #f8d7da; color: #721c24; padding: 15px; border-radius: 10px; text-align: center;">
-                ❌ Erro de conexão com o servidor.
-            </div>
-        `;
+    });
+
+    function mostrarMensagem(texto, tipo) {
+        msg.textContent = texto;
+        msg.className = "mensagem " + tipo;
+        msg.style.display = "block";
+
+        setTimeout(() => {
+            msg.style.display = "none";
+        }, 4000);
     }
 });
-
-function logout() {
-    localStorage.removeItem("token");
-    window.location.href = "index.html";
-}
-
-document.getElementById("menu-toggle").addEventListener("click", () => {
-    document.getElementById("sidebar").classList.toggle("active");
-});
-
-verificarAuth();

@@ -1,105 +1,66 @@
-const API_URL = "http://localhost:5000/api";
+document.addEventListener("DOMContentLoaded", () => {
+    const tableBody = document.querySelector("#userTable tbody");
+    const searchInput = document.getElementById("searchInput");
 
-let usuariosCache = [];
+    carregarUsuarios();
 
-function escapeHtml(text) {
-    if (!text) return "";
-    const div = document.createElement("div");
-    div.textContent = text;
-    return div.innerHTML;
-}
+    async function carregarUsuarios() {
+        tableBody.innerHTML = `
+            <tr><td colspan="5" class="loading-text">Carregando usuários...</td></tr>
+        `;
 
-async function verificarToken() {
-    const token = localStorage.getItem("token");
+        try {
+            const response = await fetch("http://localhost:3000/usuarios");
+            const data = await response.json();
 
-    if (!token) {
-        window.location.href = "index.html";
-        return;
+            if (!response.ok) {
+                tableBody.innerHTML = `
+                    <tr><td colspan="5" class="loading-text">Erro ao carregar usuários.</td></tr>
+                `;
+                return;
+            }
+
+            exibirUsuarios(data);
+        } catch (error) {
+            tableBody.innerHTML = `
+                <tr><td colspan="5" class="loading-text">Falha ao conectar ao servidor.</td></tr>
+            `;
+            console.error(error);
+        }
     }
 
-    try {
-        const res = await fetch(`${API_URL}/listalogins`, {
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: "Bearer " + token,
-            },
-        });
-
-        if (!res.ok) {
-            console.warn("Token inválido ou expirado.");
-            localStorage.removeItem("token");
-            window.location.href = "index.html";
+    function exibirUsuarios(usuarios) {
+        if (usuarios.length === 0) {
+            tableBody.innerHTML = `<tr><td colspan="5" class="loading-text">Nenhum usuário encontrado.</td></tr>`;
             return;
         }
 
-        const data = await res.json();
-        usuariosCache = Array.isArray(data) ? data : [];
-        preencherTabela(usuariosCache);
-    } catch (err) {
-        console.error("Erro ao buscar dados:", err);
-        const tbody = document.querySelector("#userTable tbody");
-        tbody.innerHTML = `<tr><td colspan="5" class="error-text">Erro ao carregar usuários. Verifique o servidor.</td></tr>`;
-    }
-}
+        tableBody.innerHTML = "";
 
-function preencherTabela(usuarios) {
-    const tbody = document.querySelector("#userTable tbody");
-    tbody.innerHTML = "";
+        usuarios.forEach(usuario => {
+            const row = document.createElement("tr");
 
-    if (!usuarios || !usuarios.length) {
-        tbody.innerHTML = `<tr><td colspan="5" class="empty-text">Nenhum usuário encontrado.</td></tr>`;
-        return;
+            row.innerHTML = `
+                <td>${usuario.id}</td>
+                <td>${usuario.nome}</td>
+                <td>${usuario.email}</td>
+                <td>${usuario.cpf}</td>
+                <td>${usuario.funcao || "—"}</td>
+            `;
+
+            tableBody.appendChild(row);
+        });
     }
 
-    usuarios.forEach((user) => {
-        const tr = document.createElement("tr");
-        const id = escapeHtml(user._id || "—");
-        const idCurto = id.length > 6 ? id.slice(-6) : id;
-        const firstName = escapeHtml(user.firstName || "");
-        const lastName = escapeHtml(user.lastName || "");
-        const nome = escapeHtml(user.nome || "");
-        const nomeCompleto = firstName ? `${firstName} ${lastName}` : nome;
-        const email = escapeHtml(user.email || "—");
-        const cpf = escapeHtml(user.CPF || user.cpf || "—");
-        const role = user.role || "usuario";
-        
-        tr.innerHTML = `
-            <td><code>${idCurto}</code></td>
-            <td>${nomeCompleto || "—"}</td>
-            <td>${email}</td>
-            <td>${cpf}</td>
-            <td><span class="role-badge role-${escapeHtml(role)}">${formatarRole(role)}</span></td>
-        `;
-        tbody.appendChild(tr);
+    searchInput.addEventListener("input", () => {
+        const termo = searchInput.value.toLowerCase();
+
+        const linhas = tableBody.querySelectorAll("tr");
+
+        linhas.forEach(linha => {
+            const texto = linha.innerText.toLowerCase();
+
+            linha.style.display = texto.includes(termo) ? "" : "none";
+        });
     });
-}
-
-function formatarRole(role) {
-    const roles = {
-        admin: "Administrador",
-        operador: "Operador",
-        usuario: "Usuário"
-    };
-    return roles[role] || "Usuário";
-}
-
-document.getElementById("searchInput").addEventListener("input", (e) => {
-    const termo = e.target.value.toLowerCase();
-
-    const filtrados = usuariosCache.filter((u) =>
-        `${u.firstName || ""} ${u.lastName || ""} ${u.nome || ""} ${u.email || ""}`.toLowerCase().includes(termo)
-    );
-
-    preencherTabela(filtrados);
 });
-
-function logout() {
-    localStorage.removeItem("token");
-    window.location.href = "index.html";
-}
-
-document.getElementById("menu-toggle").addEventListener("click", () => {
-    document.getElementById("sidebar").classList.toggle("active");
-});
-
-verificarToken();

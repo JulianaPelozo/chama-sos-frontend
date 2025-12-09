@@ -17,14 +17,14 @@
                 <h3>Chama SOS</h3>
             </div>
             <nav class="sidebar-nav">
-                <a href="home.html">🏠 Início</a>
-                <a href="usuarios.html" class="active">👥 Usuários</a>
-                <a href="ocorrencias.html">🚨 Ocorrências</a>
-                <a href="cadastro-ocorrencia.html">➕ Nova Ocorrência</a>
-                <a href="configuracoes.html">⚙️ Configurações</a>
+                <a href="home.html">Início</a>
+                <a href="usuarios.html" class="active">Usuários</a>
+                <a href="ocorrencias.html">Ocorrências</a>
+                <a href="cadastro-ocorrencia.html">Nova Ocorrência</a>
+                <a href="configuracoes.html">Configurações</a>
             </nav>
             <div class="sidebar-footer">
-                <a href="#" onclick="logout()">🚪 Sair</a>
+                <a href="#" onclick="logout()">Sair</a>
             </div>
         </aside>
 
@@ -37,9 +37,9 @@
             <section id="content">
                 <div class="card">
                     <div class="card-header">
-                        <h3>👥 Usuários Cadastrados</h3>
+                        <h3></h3> Usuários Cadastrados</h3>
                         <button class="btn-primary" onclick="abrirModalNovoUsuario()">
-                            ➕ Novo Usuário
+                            Novo Usuário
                         </button>
                     </div>
                     
@@ -71,7 +71,6 @@
         </div>
     </div>
 
-    <!-- Modal de Edição/Criação -->
     <div class="modal-overlay" id="modalOverlay">
         <div class="modal-content">
             <button class="modal-close" onclick="fecharModal()">✖️</button>
@@ -131,10 +130,9 @@
         </div>
     </div>
 
-    <!-- Modal de Confirmação de Exclusão -->
     <div class="modal-overlay" id="deleteModalOverlay">
         <div class="modal-content modal-small">
-            <h2>⚠️ Confirmar Exclusão</h2>
+            <h2>Confirmar Exclusão</h2>
             <p>Tem certeza que deseja excluir o usuário <strong id="deleteUserName"></strong>?</p>
             <p class="warning-text">Esta ação não pode ser desfeita.</p>
             

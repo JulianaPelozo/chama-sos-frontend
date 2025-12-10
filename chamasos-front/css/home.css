@@ -1,96 +1,196 @@
-/* Sidebar */
+/* ===========================
+   SIDEBAR
+=========================== */
 .sidebar {
     width: 250px;
     min-height: 100vh;
-    background: #fff;
+    background: #ffffff;
+    border-right: 1px solid #eee;
     position: fixed;
     transition: 0.3s;
+    padding-top: 20px;
 }
 
 .sidebar-logo {
     width: 90px;
     height: 90px;
     border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #ff0000;
 }
 
-/* Navegação */
+/* ===========================
+   LINKS DA SIDEBAR
+=========================== */
 .nav-link {
+    font-size: 1.05rem;
+    padding: 12px 15px;
+    color: #333;
+    border-radius: 8px;
+    margin-bottom: 6px;
+    transition: 0.25s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nav-link i {
     font-size: 1.1rem;
-    padding: 10px 15px;
-    color: #444;
-    border-radius: 6px;
-    transition: 0.2s;
 }
 
 .nav-link:hover {
-    background: #ffdddd;
-    color: #c20000;
+    background: #ffe6e6;
+    color: #cc0000;
 }
 
 .nav-link.active {
     background: #ff0000;
-    color: #fff;
+    color: #fff !important;
+    font-weight: bold;
 }
 
-/* Topbar */
+/* ===========================
+   TOPBAR
+=========================== */
 .topbar {
     height: 60px;
-    background: #fff;
-    padding: 0 15px;
+    background: #ffffff;
+    border-bottom: 1px solid #eee;
+    padding: 0 20px;
     margin-left: 250px;
     position: fixed;
     width: calc(100% - 250px);
     z-index: 10;
 }
 
-/* Conteúdo */
+.topbar h5 {
+    color: #222;
+    font-weight: 700;
+}
+
+/* ===========================
+   MAIN CONTENT
+=========================== */
 main {
     margin-left: 250px;
-    padding-top: 70px;
+    padding-top: 80px;
 }
 
-/* Cards de estatística */
+/* ===========================
+   CARDS DE ESTATÍSTICAS
+=========================== */
 .stat-card {
+    background: #ffffff;
+    border-radius: 15px;
+    padding: 30px 20px;
     text-align: center;
-    border-radius: 10px;
-}
-.stat-icon {
-    font-size: 35px;
-}
-.stat-card h3 {
-    font-size: 32px;
-    margin: 5px 0;
+    transition: 0.2s;
+    border: 1px solid #eee;
 }
 
-/* Botões de ação */
+.stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 16px rgba(255, 0, 0, 0.15);
+}
+
+.stat-icon {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.stat-number {
+    font-size: 36px;
+    font-weight: bold;
+    color: #222;
+}
+
+.stat-label {
+    color: #666;
+    margin-top: -5px;
+}
+
+/* ===========================
+   BOTÃO DE NOVA OCORRÊNCIA
+=========================== */
 .action-btn {
-    display: block;
-    text-align: center;
-    padding: 18px;
+    display: inline-block;
+    padding: 18px 22px;
     background: #ff0000;
-    border-radius: 10px;
+    border-radius: 12px;
     color: #fff;
     font-size: 18px;
     text-decoration: none;
+    font-weight: 500;
     transition: 0.2s;
 }
+
 .action-btn:hover {
     background: #c20000;
+    transform: translateY(-2px);
 }
 
-/* Sidebar responsiva */
+/* ===========================
+   TABELA
+=========================== */
+.table-container {
+    border: 1px solid #eee;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+table thead {
+    font-size: 1rem;
+}
+
+table tbody tr:hover {
+    background: #fff5f5;
+}
+
+/* ===========================
+   RESPONSIVIDADE
+=========================== */
 @media (max-width: 780px) {
+
     .sidebar {
         margin-left: -260px;
     }
+
     .sidebar.open {
         margin-left: 0;
     }
+
     main {
         margin-left: 0;
+        padding: 80px 15px;
     }
+
     .topbar {
         width: 100%;
         margin-left: 0;
     }
+
+    .action-btn {
+        width: 100%;
+    }
+}
+/* ===========================
+   ANIMAÇÕES
+=========================== */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+/* ===========================
+   FORMULÁRIOS
+=========================== */
+.form-group {
+    margin-bottom: 18px;
+    display: flex;
+    flex-direction: column;
 }

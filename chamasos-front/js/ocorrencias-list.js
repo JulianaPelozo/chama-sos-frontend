@@ -1,114 +1,108 @@
-const API_URL = "http://localhost:3000/ocorrencias";
+const API_URL = "http://127.0.0.1:3000/ocorrencias";
+
+const tabela = document.getElementById("tabelaOcorrencias");
+const searchInput = document.getElementById("searchInput");
+const filterPrioridade = document.getElementById("filterPrioridade");
+const filterStatus = document.getElementById("filterStatus");
+
+let ocorrencias = [];
+let idEdicao = null;
+
 
 async function carregarOcorrencias() {
-    const tbody = document.getElementById("occurrenceTableBody");
-    tbody.innerHTML = `<tr><td colspan="6" class="loading-text">Carregando...</td></tr>`;
-
-    try {
-        const response = await fetch(API_URL);
-        const data = await response.json();
-
-        atualizarContadores(data);
-        renderizarTabela(data);
-
-    } catch (err) {
-        tbody.innerHTML = `<tr><td colspan="6" class="loading-text error">Erro ao carregar dados</td></tr>`;
-    }
+    const resposta = await fetch(API_URL);
+    ocorrencias = await resposta.json();
+    renderTabela();
 }
 
-function atualizarContadores(lista) {
-    document.getElementById("countAll").textContent = lista.length;
-    document.getElementById("countPending").textContent = lista.filter(o => o.status === "pendente").length;
-    document.getElementById("countProgress").textContent = lista.filter(o => o.status === "em_andamento").length;
-    document.getElementById("countResolved").textContent = lista.filter(o => o.status === "resolvida").length;
-}
+function renderTabela() {
+    const busca = searchInput.value.toLowerCase();
+    const prioridade = filterPrioridade.value;
+    const status = filterStatus.value;
 
-function renderizarTabela(lista) {
-    const tbody = document.getElementById("occurrenceTableBody");
-    tbody.innerHTML = "";
+    tabela.innerHTML = "";
 
-    lista.forEach(o => {
-        const tr = document.createElement("tr");
+    ocorrencias
+        .filter(o =>
+            o.titulo.toLowerCase().includes(busca) ||
+            o.descricao?.toLowerCase().includes(busca)
+        )
+        .filter(o => (prioridade ? o.prioridade === prioridade : true))
+        .filter(o => (status ? o.status === status : true))
+        .forEach(o => {
+            const tr = document.createElement("tr");
 
-        tr.innerHTML = `
-            <td>${o.id}</td>
-            <td>${o.titulo}</td>
-            <td>${o.localizacao}</td>
-            <td>${o.status}</td>
-            <td>${new Date(o.data).toLocaleString()}</td>
-            <td>
-                <button class="btn-secondary" onclick="abrirModal(${o.id})">Editar</button>
-                <button class="btn-danger" onclick="abrirModalDelete(${o.id}, '${o.titulo}')">Excluir</button>
-            </td>
-        `;
+            tr.innerHTML = `
+                <td>${o.titulo}</td>
+                <td>${o.localizacao}</td>
+                <td>${o.prioridade}</td>
+                <td>${o.status}</td>
+                <td>${new Date(o.data).toLocaleString()}</td>
+                <td>
+                    <button class="btn btn-sm btn-warning" onclick="editar(${o.id})">Editar</button>
+                    <button class="btn btn-sm btn-danger" onclick="excluir(${o.id})">Excluir</button>
+                </td>
+            `;
 
-        tbody.appendChild(tr);
-    });
+            tabela.appendChild(tr);
+        });
 }
 
 
-async function abrirModal(id) {
-    document.getElementById("modalOverlay").style.display = "flex";
+function editar(id) {
+    const ocorrencia = ocorrencias.find(o => o.id === id);
+    idEdicao = id;
 
-    const response = await fetch(`${API_URL}/${id}`);
-    const dados = await response.json();
+    document.getElementById("editTitulo").value = ocorrencia.titulo;
+    document.getElementById("editDescricao").value = ocorrencia.descricao;
+    document.getElementById("editLocalizacao").value = ocorrencia.localizacao;
+    document.getElementById("editPrioridade").value = ocorrencia.prioridade;
+    document.getElementById("editTipo").value = ocorrencia.tipo;
+    document.getElementById("editObservacoes").value = ocorrencia.observacoes ?? "";
 
-    document.getElementById("occurrenceId").value = dados.id;
-    document.getElementById("titulo").value = dados.titulo;
-    document.getElementById("descricao").value = dados.descricao;
-    document.getElementById("localizacao").value = dados.localizacao;
-    document.getElementById("status").value = dados.status;
-    document.getElementById("prioridade").value = dados.prioridade;
-    document.getElementById("observacoes").value = dados.observacoes || "";
+    document.getElementById("editPanel").classList.add("open");
 }
 
-function fecharModal() {
-    document.getElementById("modalOverlay").style.display = "none";
-}
 
-async function salvarOcorrencia(event) {
-    event.preventDefault();
+document.getElementById("editForm").addEventListener("submit", async e => {
+    e.preventDefault();
 
-    const id = document.getElementById("occurrenceId").value;
-
-    const ocorrencia = {
-        titulo: titulo.value,
-        descricao: descricao.value,
-        localizacao: localizacao.value,
-        status: status.value,
-        prioridade: prioridade.value,
-        observacoes: observacoes.value
+    const dados = {
+        titulo: editTitulo.value,
+        descricao: editDescricao.value,
+        localizacao: editLocalizacao.value,
+        prioridade: editPrioridade.value,
+        tipo: editTipo.value,
+        observacoes: editObservacoes.value,
     };
 
-    await fetch(`${API_URL}/${id}`, {
+    await fetch(`${API_URL}/${idEdicao}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(ocorrencia)
+        body: JSON.stringify(dados)
     });
 
-    fecharModal();
+    fecharPainel();
+    carregarOcorrencias();
+});
+
+
+async function excluir(id) {
+    if (!confirm("Tem certeza que deseja excluir?")) return;
+
+    await fetch(`${API_URL}/${id}`, { method: "DELETE" });
+
     carregarOcorrencias();
 }
 
 
-let idParaExcluir = null;
-
-function abrirModalDelete(id, titulo) {
-    idParaExcluir = id;
-    document.getElementById("deleteOccurrenceName").textContent = titulo;
-    document.getElementById("deleteModalOverlay").style.display = "flex";
+function fecharPainel() {
+    document.getElementById("editPanel").classList.remove("open");
 }
 
-function fecharModalDelete() {
-    document.getElementById("deleteModalOverlay").style.display = "none";
-}
+searchInput.addEventListener("input", renderTabela);
+filterPrioridade.addEventListener("change", renderTabela);
+filterStatus.addEventListener("change", renderTabela);
 
-async function confirmarExclusao() {
-    await fetch(`${API_URL}/${idParaExcluir}`, { method: "DELETE" });
-    fecharModalDelete();
-    carregarOcorrencias();
-}
-
-document.getElementById("occurrenceForm").addEventListener("submit", salvarOcorrencia);
 
 carregarOcorrencias();

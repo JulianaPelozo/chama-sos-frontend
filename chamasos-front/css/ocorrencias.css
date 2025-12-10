@@ -1,72 +1,195 @@
-/* ——— FILTROS ——— */
-.filters-container {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 15px;
-    gap: 10px;
+/* =============================
+   LAYOUT
+============================= */
+body {
+    margin: 0;
+    font-family: "Segoe UI", sans-serif;
+    background: #f9f9f9;
 }
 
-.search-container input {
-    width: 260px;
+.layout {
+    display: flex;
+    height: 100vh;
+}
+
+/* =============================
+   SIDEBAR
+============================= */
+.sidebar {
+    width: 230px;
+    background: #8b0000;
+    color: white;
+    padding: 25px 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar .logo {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+.sidebar a {
+    text-decoration: none;
+    color: white;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+    transition: 0.2s ease;
+}
+
+.sidebar a:hover {
+    background: #a00000;
+}
+
+.sidebar a.active {
+    background: #b30000;
+}
+
+/* =============================
+   CONTEÚDO PRINCIPAL
+============================= */
+.content {
+    flex: 1;
+    padding: 25px 40px;
+    overflow-y: auto;
+}
+
+.content h1 {
+    font-size: 28px;
+    margin-bottom: 25px;
+    color: #8b0000;
+    font-weight: bold;
+}
+
+/* =============================
+   FILTROS
+============================= */
+.filters {
+    display: flex;
+    gap: 12px;
+}
+
+.filters input,
+.filters select {
     padding: 10px;
-    border-radius: 10px;
+    border-radius: 6px;
     border: 1px solid #ccc;
 }
 
-/* ——— CONTADORES ——— */
-.status-counters {
-    display: flex;
-    justify-content: space-between;
-    margin: 20px 0;
-    gap: 15px;
-}
-
-.counter {
+.filters input {
     flex: 1;
-    background: #fff;
-    padding: 15px;
-    border-radius: 12px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    text-align: center;
 }
 
-.counter-value {
-    font-size: 26px;
-    font-weight: bold;
-    display: block;
+/* =============================
+   TABELA
+============================= */
+.table {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
 }
 
-.counter-label {
-    font-size: 13px;
-    color: #555;
+.table thead {
+    background: #b30000 !important;
+    color: white;
+    font-size: 16px;
 }
 
-/* ——— TABELA ——— */
-.table-container {
-    overflow-x: auto;
+.table tbody tr:hover {
+    background: #fff0f0;
 }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
+.btn-warning {
+    background: #d98200;
+    border: none;
 }
 
-thead th {
-    background: #f3f3f3;
-    padding: 12px;
+.btn-danger {
+    background: #b30000;
+    border: none;
 }
 
-tbody td {
-    padding: 12px;
-    border-bottom: 1px solid #ddd;
-}
-
-.loading-text {
-    text-align: center;
+/* =============================
+   PAINEL DE EDIÇÃO (DIREITA)
+============================= */
+.edit-panel {
+    width: 340px;
+    background: white;
+    border-left: 3px solid #b30000;
     padding: 20px;
+    position: fixed;
+    right: -380px;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    transition: 0.35s ease;
+    box-shadow: -3px 0 15px rgba(0, 0, 0, 0.2);
 }
 
-/* ——— MODAL ——— */
-.modal-large {
-    width: 650px !important;
+.edit-panel.open {
+    right: 0;
+}
+
+.edit-panel h3 {
+    margin-bottom: 15px;
+    color: #8b0000;
+    font-weight: bold;
+}
+
+.edit-panel form label {
+    margin-top: 10px;
+    font-weight: 600;
+}
+
+.edit-panel input,
+.edit-panel textarea,
+.edit-panel select {
+    border-radius: 6px;
+    border: 1px solid #bbb;
+}
+
+.edit-panel textarea {
+    resize: vertical;
+}
+
+/* =============================
+   BOTÕES DO PAINEL
+============================= */
+.btn-success {
+    background: #007f3d;
+    border: none;
+}
+
+.btn-secondary {
+    background: #555;
+    border: none;
+}
+
+/* Scroll bonito */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #b30000;
+    border-radius: 4px;
+}
+
+/* =============================
+   RESPONSIVIDADE
+============================= */
+@media (max-width: 880px) {
+    .filters {
+        flex-direction: column;
+    }
+
+    .edit-panel {
+        width: 100%;
+    }
 }

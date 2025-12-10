@@ -1,6 +1,6 @@
 /* ====== Fundo da página ====== */
 body {
-    background: linear-gradient(135deg, #0d6efd, #6ea8fe);
+    background: linear-gradient(135deg, #b30000, #ff4d4d); /* vermelho → vermelho claro */
     height: 100vh;
     margin: 0;
     font-family: "Segoe UI", sans-serif;
@@ -23,27 +23,38 @@ body {
     border-radius: 15px;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
     animation: fadeIn 0.6s ease;
+    border-top: 6px solid #b30000;
 }
 
-/* ====== Logo ====== */
+/* ====== Título ====== */
+.login-card h3 {
+    text-align: center;
+    margin-bottom: 15px;
+    font-weight: 700;
+    color: #b30000;
+}
+
+/* ====== Logo opcional ====== */
 .logo-img {
     width: 120px;
     height: auto;
-    margin-bottom: 10px;
+    margin: 0 auto 15px;
+    display: block;
     animation: slideDown 0.6s ease;
 }
 
-/* ====== Inputs personalizados ====== */
+/* ====== Inputs ====== */
 .form-control {
     height: 48px;
     font-size: 15px;
     border-radius: 8px;
+    border: 2px solid #ddd;
     transition: all 0.2s ease;
 }
 
 .form-control:focus {
-    border-color: #0d6efd;
-    box-shadow: 0 0 5px rgba(13, 110, 253, 0.5);
+    border-color: #b30000;
+    box-shadow: 0 0 5px rgba(179, 0, 0, 0.45);
 }
 
 /* ====== Botão ====== */
@@ -51,7 +62,13 @@ button {
     height: 48px;
     font-size: 17px;
     font-weight: 600;
-    border-radius: 8px;
+    border-radius: 8px !important;
+    background: #b30000;
+    border: none;
+}
+
+button:hover {
+    background: #8B0000;
 }
 
 /* ====== Animações ====== */

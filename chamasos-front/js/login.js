@@ -18,6 +18,8 @@ document.addEventListener("DOMContentLoaded", () => {
             localStorage.setItem("userId", "1");
             localStorage.setItem("matricula", matricula);
 
+            localStorage.setItem("token", "fake-token-teste");
+
             window.location.href = "home.html";
         } else {
             alert("Matrícula ou senha incorretas.");

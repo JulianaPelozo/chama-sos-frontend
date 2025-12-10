@@ -1,52 +1,133 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Login</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chama SOS - Bem vindo!</title>
 
-    <link 
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" 
-        rel="stylesheet"
-    >
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
 
-    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <link rel="stylesheet" href="css/home.css">
 </head>
+
 <body>
 
-    <div class="login-container">
-
-        <div class="login-card">
-
-            <div class="logo-area text-center mb-3">
-                <img src="img/logo.png" alt="Logo" class="logo-img">
-            </div>
-
-            <h3 class="text-center mb-4">Acesso ao Sistema</h3>
-
-            <form id="loginForm">
-
-                <div class="form-group mb-3">
-                    <label class="form-label">Matrícula</label>
-                    <input type="text" id="matricula" class="form-control" required>
-                </div>
-
-                <div class="form-group mb-4">
-                    <label class="form-label">Senha</label>
-                    <input type="password" id="senha" class="form-control" required>
-                </div>
-
-                <button type="submit" class="btn btn-primary w-100">Entrar</button>
-
-            </form>
-
+    <aside id="sidebar" class="sidebar p-3 shadow-sm">
+        <div class="text-center mb-4">
+            <img src="img/logo.jpg" class="sidebar-logo" alt="Logo">
+            <h4 class="mt-2 fw-bold">Chama SOS</h4>
         </div>
 
-    </div>
+        <nav class="nav flex-column">
+            <a class="nav-link active">
+                <i class="fa-solid fa-house me-2"></i> Início
+            </a>
 
-    <script src="login.js"></script>
+            <a href="ocorrencias.html" class="nav-link">
+                <i class="fa-solid fa-fire me-2"></i> Ocorrências
+            </a>
 
-    <script 
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
-    </script>
+            <a href="perfil.html" class="nav-link">
+                <i class="fa-solid fa-user me-2"></i> Perfil
+            </a>
+
+            <a href="config.html" class="nav-link">
+                <i class="fa-solid fa-gear me-2"></i> Configurações
+            </a>
+
+            <a onclick="logout()" class="nav-link text-danger" style="cursor: pointer;">
+                <i class="fa-solid fa-right-from-bracket me-2"></i> Sair
+            </a>
+        </nav>
+    </aside>
+
+    <header class="topbar d-flex align-items-center justify-content-between shadow-sm px-3">
+        <button id="menu-toggle" class="btn btn-outline-danger d-md-none">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <h5 class="m-0 fw-bold">Dashboard</h5>
+
+        <div id="userName" class="fw-bold text-end">Olá, Carregando...</div>
+    </header>
+
+    <main class="p-4">
+
+        <div class="row g-4">
+
+            <div class="col-md-3">
+                <div class="stat-card p-4 shadow-sm">
+                    <i class="fa-solid fa-users stat-icon text-primary"></i>
+                    <h3 id="totalUsers" class="stat-number">—</h3>
+                    <p class="stat-label">Usuários Registrados</p>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="stat-card p-4 shadow-sm">
+                    <i class="fa-solid fa-list stat-icon text-danger"></i>
+                    <h3 id="totalOccurrences" class="stat-number">—</h3>
+                    <p class="stat-label">Total de Ocorrências</p>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="stat-card p-4 shadow-sm">
+                    <i class="fa-solid fa-clock stat-icon text-warning"></i>
+                    <h3 id="pendingOccurrences" class="stat-number">—</h3>
+                    <p class="stat-label">Pendentes</p>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="stat-card p-4 shadow-sm">
+                    <i class="fa-solid fa-check stat-icon text-success"></i>
+                    <h3 id="resolvedOccurrences" class="stat-number">—</h3>
+                    <p class="stat-label">Resolvidas</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- BUTTON -->
+        <div class="my-4 text-center text-md-start">
+            <a href="cadastro-ocorrencia.html" class="action-btn">
+                <i class="fa-solid fa-plus-circle me-2"></i>
+                Registrar Nova Ocorrência
+            </a>
+        </div>
+
+        <!-- TABLE -->
+        <h4 class="mt-5 mb-3 fw-bold">Últimas Ocorrências</h4>
+
+        <div class="table-container rounded shadow-sm">
+            <div class="table-responsive">
+                <table class="table table-striped align-middle">
+                    <thead class="table-danger text-center">
+                        <tr>
+                            <th>Título</th>
+                            <th>Localização</th>
+                            <th>Status</th>
+                            <th>Data</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="recentOccurrences" class="text-center">
+                        <tr>
+                            <td colspan="4">Carregando...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </main>
+
+    <script src="js/home.js"></script>
 </body>
+
 </html>

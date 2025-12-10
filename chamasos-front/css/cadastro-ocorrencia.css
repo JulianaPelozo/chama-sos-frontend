@@ -1,91 +1,40 @@
-/* CARD PRINCIPAL */
-.card {
+.cadastro-card {
+    border-radius: 14px;
     background: #fff;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     max-width: 900px;
-    margin: 20px auto;
+    margin: auto;
 }
 
-/* TÍTULO */
-.card h3 {
-    margin-bottom: 15px;
-}
-
-.form-group {
-    margin-bottom: 18px;
-    display: flex;
-    flex-direction: column;
-}
-
-.form-group label {
-    font-weight: bold;
-    margin-bottom: 6px;
-}
-
-.form-group input,
-.form-group textarea,
-.form-group select {
+.cadastro-card input,
+.cadastro-card textarea,
+.cadastro-card select {
+    border-radius: 10px !important;
     padding: 12px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    font-size: 15px;
-    transition: border-color .2s ease;
+    border: 1px solid #ccc !important;
+    background: #fafafa;
+    transition: 0.25s ease;
 }
 
-.form-group input:focus,
-.form-group textarea:focus,
-.form-group select:focus {
-    border-color: #007BFF;
-    outline: none;
+.cadastro-card input:focus,
+.cadastro-card textarea:focus,
+.cadastro-card select:focus {
+    border-color: #ff0000 !important;
+    background: #fff;
+    box-shadow: 0 0 5px rgba(255, 0, 0, 0.2);
 }
 
-.form-row {
-    display: flex;
-    gap: 20px;
+.btn-danger {
+    border-radius: 10px !important;
+    font-size: 17px;
+    transition: 0.25s;
 }
 
-.form-row .form-group {
-    flex: 1;
+.btn-danger:hover {
+    background: #c20000 !important;
 }
 
-/* Botão */
-.btn-primary {
-    background: #007BFF;
-    color: white;
-    border: none;
-    font-weight: bold;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: .2s;
-}
-
-.btn-primary:hover {
-    background: #0056b3;
-}
-
-/* Mensagens */
-.mensagem {
-    padding: 12px;
-    border-radius: 8px;
-    text-align: center;
-    display: none;
-}
-
-.mensagem.sucesso {
-    background: #d4f8d4;
-    color: #2b7a2b;
-}
-
-.mensagem.erro {
-    background: #ffe0e0;
-    color: #a12828;
-}
-
-/* Responsivo */
-@media(max-width: 768px) {
-    .form-row {
-        flex-direction: column;
-    }
+#mensagem {
+    border-radius: 10px;
+    font-weight: 600;
+    padding: 14px;
 }

@@ -15,7 +15,7 @@
 
 <body>
 
-=    <aside id="sidebar" class="sidebar p-3 shadow-sm">
+    = <aside id="sidebar" class="sidebar p-3 shadow-sm">
         <div class="text-center mb-4">
             <img src="img/logo.jpg" class="sidebar-logo" alt="Logo">
             <h4 class="mt-2">Chama SOS</h4>
@@ -32,7 +32,7 @@
         </nav>
     </aside>
 
-=    <main class="p-4" style="margin-left:250px; padding-top:20px;">
+    = <main class="p-4" style="margin-left:250px; padding-top:20px;">
 
         <div class="card p-4 shadow-sm cadastro-card">
 
@@ -44,7 +44,8 @@
                 <div class="row mb-3">
                     <div class="col-md-12">
                         <label class="form-label fw-semibold">Título da Ocorrência</label>
-                        <input type="text" id="titulo" class="form-control" placeholder="Ex: Incêndio em galpão" required>
+                        <input type="text" id="titulo" class="form-control" placeholder="Ex: Incêndio em galpão"
+                            required>
                     </div>
                 </div>
 
@@ -100,6 +101,14 @@
     </main>
 
     <script src="js/cadastro-ocorrencia.js"></script>
+    <script>
+        if ("serviceWorker" in navigator) {
+            navigator.serviceWorker
+                .register("service-worker.js")
+                .then(() => console.log("Service Worker registrado com sucesso!"))
+                .catch(err => console.error("Erro ao registrar SW:", err));
+        }
+    </script>
 </body>
 
 </html>

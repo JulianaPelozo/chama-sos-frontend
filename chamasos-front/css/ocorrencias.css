@@ -1,135 +1,138 @@
-/* =============================
-   LAYOUT
-============================= */
+/* ====== LAYOUT GERAL ====== */
 body {
+    background: #f5f5f7;
     margin: 0;
-    font-family: "Segoe UI", sans-serif;
-    background: #f9f9f9;
+    font-family: "Inter", sans-serif;
 }
 
 .layout {
     display: flex;
     height: 100vh;
+    overflow: hidden;
 }
 
-/* =============================
-   SIDEBAR
-============================= */
+/* ====== SIDEBAR ====== */
 .sidebar {
-    width: 230px;
-    background: #8b0000;
-    color: white;
+    width: 260px;
+    background: #b30000;
+    color: #fff;
     padding: 25px 20px;
     display: flex;
     flex-direction: column;
 }
 
-.sidebar .logo {
-    font-size: 22px;
-    font-weight: bold;
-    margin-bottom: 30px;
+.logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #ff0000;
+    margin-bottom: 25px;
 }
 
-.sidebar a {
-    text-decoration: none;
-    color: white;
-    padding: 12px;
-    font-size: 16px;
-    border-radius: 6px;
+.logo span {
+    color: #ff0000;
+}
+
+.sidebar .menu a {
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-bottom: 8px;
-    transition: 0.2s ease;
+    color: #ff0000;
+    font-size: 1.1rem;
+    padding: 10px 12px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: 0.2s;
 }
 
-.sidebar a:hover {
-    background: #a00000;
+.sidebar .menu a:hover {
+    background: rgba(255, 255, 255, 0.15);
 }
 
-.sidebar a.active {
-    background: #b30000;
+.sidebar .menu a.active {
+    background: #ffffff;
+    color: #ff0000;
+    font-weight: 600;
 }
 
-/* =============================
-   CONTEÚDO PRINCIPAL
-============================= */
+/* ====== CONTEÚDO ====== */
 .content {
     flex: 1;
-    padding: 25px 40px;
+    padding: 25px;
     overflow-y: auto;
 }
 
-.content h1 {
-    font-size: 28px;
-    margin-bottom: 25px;
-    color: #8b0000;
-    font-weight: bold;
+.page-header h1 {
+    color: #ff0000;
+    font-size: 2rem;
 }
 
-/* =============================
-   FILTROS
-============================= */
+/* ====== FILTROS ====== */
 .filters {
-    display: flex;
-    gap: 12px;
+    background: #fff;
+    border-radius: 12px;
 }
 
 .filters input,
 .filters select {
-    padding: 10px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
+    height: 45px;
+    font-size: 1rem;
 }
 
-.filters input {
-    flex: 1;
+.filters input:focus,
+.filters select:focus {
+    border-color: #b30000 !important;
+    box-shadow: 0 0 0 0.2rem rgba(179, 0, 0, 0.25);
 }
 
-/* =============================
-   TABELA
-============================= */
+/* ====== TABELA ====== */
 .table {
-    background: white;
-    border-radius: 8px;
+    border-radius: 12px;
     overflow: hidden;
 }
 
 .table thead {
     background: #b30000 !important;
-    color: white;
-    font-size: 16px;
+    color: #fff !important;
 }
 
 .table tbody tr:hover {
-    background: #fff0f0;
+    background: #fff4f4;
 }
 
+.table td,
+.table th {
+    vertical-align: middle;
+}
+
+/* Botões da tabela */
 .btn-warning {
-    background: #d98200;
+    background: #ffb300 !important;
     border: none;
+}
+.btn-warning:hover {
+    background: #e0a000 !important;
 }
 
 .btn-danger {
-    background: #b30000;
+    background: #cc0000 !important;
     border: none;
 }
+.btn-danger:hover {
+    background: #aa0000 !important;
+}
 
-/* =============================
-   PAINEL DE EDIÇÃO (DIREITA)
-============================= */
+/* ====== PAINEL DE EDIÇÃO ====== */
 .edit-panel {
-    width: 340px;
-    background: white;
-    border-left: 3px solid #b30000;
-    padding: 20px;
     position: fixed;
-    right: -380px;
+    right: -400px;
     top: 0;
+    width: 380px;
     height: 100vh;
+    background: #ffffff;
+    padding: 25px;
+    box-shadow: -3px 0 12px rgba(0,0,0,0.15);
+    transition: right 0.35s ease;
     overflow-y: auto;
-    transition: 0.35s ease;
-    box-shadow: -3px 0 15px rgba(0, 0, 0, 0.2);
 }
 
 .edit-panel.open {
@@ -137,59 +140,54 @@ body {
 }
 
 .edit-panel h3 {
-    margin-bottom: 15px;
-    color: #8b0000;
-    font-weight: bold;
+    color: #b30000;
 }
 
-.edit-panel form label {
-    margin-top: 10px;
+.edit-form label {
     font-weight: 600;
+    margin-top: 10px;
 }
 
-.edit-panel input,
-.edit-panel textarea,
-.edit-panel select {
-    border-radius: 6px;
-    border: 1px solid #bbb;
+.edit-form input,
+.edit-form textarea,
+.edit-form select {
+    border-radius: 8px;
 }
 
-.edit-panel textarea {
-    resize: vertical;
+.edit-form input:focus,
+.edit-form textarea:focus,
+.edit-form select:focus {
+    border-color: #b30000 !important;
+    box-shadow: 0 0 0 0.2rem rgba(179, 0, 0, 0.25);
 }
 
-/* =============================
-   BOTÕES DO PAINEL
-============================= */
-.btn-success {
-    background: #007f3d;
-    border: none;
-}
-
-.btn-secondary {
-    background: #555;
-    border: none;
-}
-
-/* Scroll bonito */
+/* ====== SCROLLBAR ====== */
 ::-webkit-scrollbar {
     width: 8px;
 }
-
 ::-webkit-scrollbar-thumb {
-    background: #b30000;
-    border-radius: 4px;
+    background: #bbbbbb;
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #999999;
 }
 
-/* =============================
-   RESPONSIVIDADE
-============================= */
-@media (max-width: 880px) {
-    .filters {
-        flex-direction: column;
-    }
-
-    .edit-panel {
-        width: 100%;
-    }
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background: #ffffff;
+    padding: 20px 15px;
 }
+
+.sidebar-logo {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.sidebar-logo img {
+    width: 120px;
+    height: auto;
+}
+
